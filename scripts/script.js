@@ -207,6 +207,8 @@ function draw() {
 	k.update(inputs);
 	k.draw(50, 50);
 	
+	rect(50, 50, 500, 500);
+	
 }
 
 
