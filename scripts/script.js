@@ -58,7 +58,7 @@ class Keyboard {
 		};
 		
 		this.altWidth = keySize * 1.3;
-		this.spaceWidth = keySize * 6.5;
+		this.spaceWidth = keySize * 6.7;
 		
 		this.pressed = new Array(26);
 		this.immune = new Array(26);
@@ -164,7 +164,7 @@ class Keyboard {
 	
 	draw(x, y, style) {
 		
-		let rowOffsets = [0, 2 * this.keySize / 7, this.keySize, this.keySize * 1.6];
+		let rowOffsets = [0, 2 * this.keySize / 7, this.keySize, this.keySize * 1.3];
 		
 		/* draws row 1 of letter keys */
 		for (let i = 0; i < 10; i++) {
