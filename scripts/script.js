@@ -28,10 +28,6 @@ class key {
 		this.isDown = keyIsDown(this.code);
 	}
 	
-	setContent(content) {
-		this.content = content;
-	}
-	
 }
 
 
@@ -46,10 +42,13 @@ class Keyboard {
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
+		this.scoreDelay = 40;
 		this.mistakes = 0;
 		this.keySize = keySize;
 		
-		this.keycodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77, 32, 18];
+		this.keycodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77];
+		this.spaceKeycode = 32;
+		this.altKeycode = 18;
 		this.defaultKeyApp = {
 			stroke : this.style["upStroke"],
 			fill : this.style["upFill"],
@@ -73,21 +72,21 @@ class Keyboard {
 		}
 		this.spaceOffset = - 2 * this.spaceWidth;
 		this.altOffset = this.spaceOffset - this.altWidth - this.keySize / 2;
-		this.animationSpeed = 13;
+		this.animationSpeed = 15;
 		
 		this.numbers = new Array(26);
 		this.expectedNext = 1;
 		
-		this.keys = new Array(28);
+		this.keys = new Array(26);
 		for (let i = 0; i < 26; i++) {
 			this.keys[i] = new key(keySize, keySize, "", this.keycodes[i], Object.assign({}, this.defaultKeyApp));
 		}
+		this.space = new key(this.spaceWidth, this.keySize, "start", this.spaceKeycode, Object.assign({}, this.defaultKeyApp));
+		this.alt = new key(this.altWidth, this.keySize, "", this.altKeycode, Object.assign({}, this.defaultKeyApp));
 		this.keys[13].content = "1";
 		this.keys[14].content = "-";
 		this.keys[15].content = "2";
 		this.keys[16].content = "6";
-		this.keys[26] = new key(this.spaceWidth, this.keySize, "start", this.keycodes[26], Object.assign({}, this.defaultKeyApp));
-		this.keys[27] = new key(this.altWidth, this.keySize, "", this.keycodes[27], Object.assign({}, this.defaultKeyApp));
 		
 	}
 	
@@ -114,9 +113,9 @@ class Keyboard {
 		this.state = 2;
 		this.numbers = numbers;
 		for (let i = 0; i < 26; i++) {
-			this.keys[i].setContent(numbers[i]);
+			this.keys[i].content = numbers[i];
 		}
-		this.keys[26].content = this.time;
+		this.space.content = this.time;
 	}
 	
 	startCountdown() {
@@ -132,6 +131,7 @@ class Keyboard {
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
+		this.scoreDelay = 40;
 		this.mistakes = 0;
 		
 		this.expectedNext = 1;
@@ -142,14 +142,14 @@ class Keyboard {
 		this.keys[14].content = "-";
 		this.keys[15].content = "2";
 		this.keys[16].content = "6";
-		this.keys[26].content = "start";
-		this.keys[27].content = "";
-		for (let i = 0; i < 28; i++) {
+		this.space.content = "start";
+		this.alt.content = "";
+		for (let i = 0; i < 26; i++) {
 			this.keys[i].appearance = Object.assign({}, this.defaultKeyApp);
-			if (i < 26) {
-				this.pressed[i] = false;
-			}
+			this.pressed[i] = false;
 		}
+		this.space.appearance = Object.assign({}, this.defaultKeyApp);
+		this.alt.appearance = Object.assign({}, this.defaultKeyApp);
 		
 		for (let i = 0; i < this.yOffsets.length; i++) {
 			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
@@ -174,12 +174,9 @@ class Keyboard {
 		for (let i = 0; i < 7; i++) {
 			this.keys[i + 19].draw(x + rowOffsets[2] + i * (this.keySize + this.keySize / 7), y + this.yOffsets[i + 19] + 2 * (this.keySize + this.keySize / 7));
 		}
-		
-		/* draws space bar */
-		this.keys[26].draw(x + this.spaceOffset + rowOffsets[3] + this.altWidth + this.keySize / 7, y + 3 * (this.keySize + this.keySize / 7));
-		
-		/* draws left alt */
-		this.keys[27].draw(x + this.altOffset + rowOffsets[3], y + 3 * (this.keySize + this.keySize / 7));
+
+		this.space.draw(x + this.spaceOffset + rowOffsets[3] + this.altWidth + this.keySize / 7, y + 3 * (this.keySize + this.keySize / 7));
+		this.alt.draw(x + this.altOffset + rowOffsets[3], y + 3 * (this.keySize + this.keySize / 7));
 	
 	}
 	
@@ -206,23 +203,39 @@ class Keyboard {
 					}
 				}
 			
-				for (let i = 0; i < 28; i++) {
-					this.keys[i].update();
-				}
+				this.space.update();
 			
-				if (this.keys[26].isDown) {
+				if (this.space.isDown) {
 					this.startCountdown();
 				}
 				
 				break;
 			case 1:
+			
+				if (this.spaceOffset < - this.animationSpeed) {
+					this.spaceOffset += this.animationSpeed;
+				} else {
+					this.spaceOffset = 0;
+				}
+				if (this.altOffset < - this.animationSpeed) {
+					this.altOffset += this.animationSpeed;
+				}else {
+					this.altOffset = 0;
+				}
+				for (let i = 0; i < this.yOffsets.length; i++) {
+					if (this.yOffsets[i] < - this.animationSpeed) {
+						this.yOffsets[i] += this.animationSpeed;
+					} else {
+						this.yOffsets[i] = 0;
+					}
+				}
 				
 				if (this.cdTime == 180) {
-					this.keys[26].content = "3";
+					this.space.content = "3";
 				} else if (this.cdTime == 120) {
-					this.keys[26].content = "2";
+					this.space.content = "2";
 				} else if (this.cdTime == 60) {
-					this.keys[26].content = "1";
+					this.space.content = "1";
 				} else if (this.cdTime == 0) {
 					this.start();
 				}
@@ -232,8 +245,8 @@ class Keyboard {
 				break;
 			case 2:
 				
-				this.keys[26].setContent((Math.round(this.time / 60 * 100) / 100).toFixed(2));
-				this.keys[27].setContent(this.mistakes);
+				this.space.content = (Math.round(this.time / 60 * 100) / 100).toFixed(2);
+				this.alt.content = this.mistakes;
 				
 				this.time++;
 				for (let i = 0; i < 26; i++) {
@@ -259,24 +272,35 @@ class Keyboard {
 					}
 				}
 				
+				if (this.expectedNext == 27) {
+					for (let i = 0; i < 26; i++) {
+						this.keys[i].appearance["stroke"] = this.style["downStroke"];
+						this.keys[i].appearance["fill"] = this.style["downFill"];
+					}
+					
+					this.state = 3;
+				}
+				
 				break;
 			case 3:
+			
+				if (this.scoreDelay > 0) {
+					this.scoreDelay--;
+				}
 			
 				for (let i = 0; i < this.yOffsets.length; i++) {
 					this.yOffsets[i] -= this.animationSpeed * 1.5;
 				}
-				this.spaceOffset += this.animationSpeed * 1.5;
-				this.altOffset += this.animationSpeed * 1.5;
+				if (this.scoreDelay == 0) {
+					this.spaceOffset += this.animationSpeed * 1.5;
+					this.altOffset += this.animationSpeed * 1.5;
+				}
 				
 				if (this.spaceOffset > this.spaceWidth * 2) {
 					this.restart();
 				}
 			
 				break;
-		}
-		
-		if (this.expectedNext == 27) {
-			this.state = 3;
 		}
 		
 	}
@@ -295,6 +319,8 @@ let defaultStyle = {
 	downFill : "#301630",
 	downMistakeStroke : "#a06868",
 	downMistakeFill : "#601630",
+	highlightStroke : "#e8e8e8",
+	highlightFill : "#806080",
 	
 	strokeWeight : 2,
 	font : "Courier New",
