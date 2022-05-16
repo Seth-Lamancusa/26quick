@@ -7,7 +7,7 @@ class key {
 		this.code = code;
 		this.appearance = appearance;
 		
-		this.isDown;
+		this.isDown = false;
 		this.prevDown = false;
 	}
 	
@@ -45,6 +45,7 @@ class Keyboard {
 		this.style = style;
 		this.state = 0;
 		this.time = 0;
+		this.cdTime = 180;
 		this.mistakes = 0;
 		this.keySize = keySize;
 		
@@ -65,6 +66,15 @@ class Keyboard {
 		this.pressed.fill(false);
 		this.immune.fill(false);
 		
+		this.kbOffset = - 2 * this.spaceWidth;
+		this.yOffsets = new Array(26);
+		for (let i = 0; i < this.yOffsets.length; i++) {
+			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
+		}
+		this.spaceOffset = - 2 * this.spaceWidth;
+		this.altOffset = this.spaceOffset - this.altWidth - this.keySize / 2;
+		this.animationSpeed = 13;
+		
 		this.numbers = new Array(26);
 		this.expectedNext = 1;
 		
@@ -72,12 +82,12 @@ class Keyboard {
 		for (let i = 0; i < 26; i++) {
 			this.keys[i] = new key(keySize, keySize, "", this.keycodes[i], Object.assign({}, this.defaultKeyApp));
 		}
-		this.keys[13].setContent("1");
-		this.keys[14].setContent("-");
-		this.keys[15].setContent("2");
-		this.keys[16].setContent("6");
-		this.keys[26] = new key(this.spaceWidth, this.keySize, "start", this.keycodes[26], this.defaultKeyApp);
-		this.keys[27] = new key(this.altWidth, this.keySize, "", this.keycodes[27], this.defaultKeyApp);
+		this.keys[13].content = "1";
+		this.keys[14].content = "-";
+		this.keys[15].content = "2";
+		this.keys[16].content = "6";
+		this.keys[26] = new key(this.spaceWidth, this.keySize, "start", this.keycodes[26], Object.assign({}, this.defaultKeyApp));
+		this.keys[27] = new key(this.altWidth, this.keySize, "", this.keycodes[27], Object.assign({}, this.defaultKeyApp));
 		
 	}
 	
@@ -101,37 +111,75 @@ class Keyboard {
 		}
 		Keyboard.shuffle(numbers);
 		
-		this.state = 1;
+		this.state = 2;
 		this.numbers = numbers;
 		for (let i = 0; i < 26; i++) {
 			this.keys[i].setContent(numbers[i]);
 		}
+		this.keys[26].content = this.time;
+	}
+	
+	startCountdown() {
+		this.state = 1;
+		
+		this.keys[13].content = "";
+		this.keys[14].content = "";
+		this.keys[15].content = "";
+		this.keys[16].content = "";
+	}
+	
+	restart() {
+		this.state = 0;
+		this.time = 0;
+		this.cdTime = 180;
+		this.mistakes = 0;
+		
+		this.expectedNext = 1;
+		for (let i = 0; i < 26; i++) {
+			this.keys[i].content = "";
+		}
+		this.keys[13].content = "1";
+		this.keys[14].content = "-";
+		this.keys[15].content = "2";
+		this.keys[16].content = "6";
+		this.keys[26].content = "start";
+		this.keys[27].content = "";
+		for (let i = 0; i < 28; i++) {
+			this.keys[i].appearance = Object.assign({}, this.defaultKeyApp);
+			if (i < 26) {
+				this.pressed[i] = false;
+			}
+		}
+		
+		for (let i = 0; i < this.yOffsets.length; i++) {
+			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
+		}
+		this.spaceOffset = - 2 * this.spaceWidth;
+		this.altOffset = this.spaceOffset - this.altWidth - this.keySize / 2;
 	}
 	
 	draw(x, y, style) {
-		
-		console.log(this.keys.isDown);
 		
 		let rowOffsets = [0, 2 * this.keySize / 7, this.keySize, this.keySize * 1.6];
 		
 		/* draws row 1 of letter keys */
 		for (let i = 0; i < 10; i++) {
-			this.keys[i].draw(x + rowOffsets[0] + i * (this.keySize + this.keySize / 7), y);
+			this.keys[i].draw(x + rowOffsets[0] + i * (this.keySize + this.keySize / 7), y + this.yOffsets[i]);
 		}
 		/* draws row 2 of letter keys */
 		for (let i = 0; i < 9; i++) {
-			this.keys[i + 10].draw(x + rowOffsets[1] + i * (this.keySize + this.keySize / 7), y + this.keySize + this.keySize / 7);
+			this.keys[i + 10].draw(x + rowOffsets[1] + i * (this.keySize + this.keySize / 7), y + this.yOffsets[i + 10] + this.keySize + this.keySize / 7);
 		}
 		/* draws row 3 of letter keys */
 		for (let i = 0; i < 7; i++) {
-			this.keys[i + 19].draw(x + rowOffsets[2] + i * (this.keySize + this.keySize / 7), y + 2 * (this.keySize + this.keySize / 7));
+			this.keys[i + 19].draw(x + rowOffsets[2] + i * (this.keySize + this.keySize / 7), y + this.yOffsets[i + 19] + 2 * (this.keySize + this.keySize / 7));
 		}
 		
 		/* draws space bar */
-		this.keys[26].draw(x + rowOffsets[3] + this.altWidth + this.keySize / 7, y + 3 * (this.keySize + this.keySize / 7));
+		this.keys[26].draw(x + this.spaceOffset + rowOffsets[3] + this.altWidth + this.keySize / 7, y + 3 * (this.keySize + this.keySize / 7));
 		
 		/* draws left alt */
-		this.keys[27].draw(x + rowOffsets[3], y + 3 * (this.keySize + this.keySize / 7));
+		this.keys[27].draw(x + this.altOffset + rowOffsets[3], y + 3 * (this.keySize + this.keySize / 7));
 	
 	}
 	
@@ -140,16 +188,49 @@ class Keyboard {
 		switch (this.state) {
 			case 0:
 			
+				if (this.spaceOffset < - this.animationSpeed) {
+					this.spaceOffset += this.animationSpeed;
+				} else {
+					this.spaceOffset = 0;
+				}
+				if (this.altOffset < - this.animationSpeed) {
+					this.altOffset += this.animationSpeed;
+				}else {
+					this.altOffset = 0;
+				}
+				for (let i = 0; i < this.yOffsets.length; i++) {
+					if (this.yOffsets[i] < - this.animationSpeed) {
+						this.yOffsets[i] += this.animationSpeed;
+					} else {
+						this.yOffsets[i] = 0;
+					}
+				}
+			
 				for (let i = 0; i < 28; i++) {
 					this.keys[i].update();
 				}
 			
 				if (this.keys[26].isDown) {
-					this.start();
+					this.startCountdown();
 				}
 				
 				break;
 			case 1:
+				
+				if (this.cdTime == 180) {
+					this.keys[26].content = "3";
+				} else if (this.cdTime == 120) {
+					this.keys[26].content = "2";
+				} else if (this.cdTime == 60) {
+					this.keys[26].content = "1";
+				} else if (this.cdTime == 0) {
+					this.start();
+				}
+				
+				this.cdTime--;
+				
+				break;
+			case 2:
 				
 				this.keys[26].setContent((Math.round(this.time / 60 * 100) / 100).toFixed(2));
 				this.keys[27].setContent(this.mistakes);
@@ -179,13 +260,23 @@ class Keyboard {
 				}
 				
 				break;
-			case 2:
+			case 3:
+			
+				for (let i = 0; i < this.yOffsets.length; i++) {
+					this.yOffsets[i] -= this.animationSpeed * 1.5;
+				}
+				this.spaceOffset += this.animationSpeed * 1.5;
+				this.altOffset += this.animationSpeed * 1.5;
 				
+				if (this.spaceOffset > this.spaceWidth * 2) {
+					this.restart();
+				}
+			
 				break;
 		}
 		
 		if (this.expectedNext == 27) {
-			this.state = 2;
+			this.state = 3;
 		}
 		
 	}
