@@ -42,7 +42,7 @@ class Keyboard {
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
-		this.scoreDelay = 40;
+		this.scoreDelay = 60;
 		this.mistakes = 0;
 		this.keySize = keySize;
 		
@@ -58,7 +58,7 @@ class Keyboard {
 		};
 		
 		this.altWidth = keySize * 1.3;
-		this.spaceWidth = keySize * 7;
+		this.spaceWidth = keySize * 6.5;
 		
 		this.pressed = new Array(26);
 		this.immune = new Array(26);
@@ -71,7 +71,7 @@ class Keyboard {
 			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
 		}
 		this.spaceOffset = - 2 * this.spaceWidth;
-		this.altOffset = this.spaceOffset - this.altWidth - this.keySize / 2;
+		this.altOffset = this.spaceOffset / 2;
 		this.animationSpeed = 15;
 		
 		this.numbers = new Array(26);
@@ -83,6 +83,8 @@ class Keyboard {
 		}
 		this.space = new key(this.spaceWidth, this.keySize, "start", this.spaceKeycode, Object.assign({}, this.defaultKeyApp));
 		this.alt = new key(this.altWidth, this.keySize, "", this.altKeycode, Object.assign({}, this.defaultKeyApp));
+		this.alt.appearance["fill"] = this.style["upMistakeFill"];
+		this.alt.appearance["stroke"] = this.style["upMistakeStroke"];
 		this.keys[13].content = "1";
 		this.keys[14].content = "-";
 		this.keys[15].content = "2";
@@ -131,7 +133,7 @@ class Keyboard {
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
-		this.scoreDelay = 40;
+		this.scoreDelay = 60;
 		this.mistakes = 0;
 		
 		this.expectedNext = 1;
@@ -150,12 +152,14 @@ class Keyboard {
 		}
 		this.space.appearance = Object.assign({}, this.defaultKeyApp);
 		this.alt.appearance = Object.assign({}, this.defaultKeyApp);
+		this.alt.appearance["fill"] = this.style["upMistakeFill"];
+		this.alt.appearance["stroke"] = this.style["upMistakeStroke"];
 		
 		for (let i = 0; i < this.yOffsets.length; i++) {
 			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
 		}
 		this.spaceOffset = - 2 * this.spaceWidth;
-		this.altOffset = this.spaceOffset - this.altWidth - this.keySize / 2;
+		this.altOffset = this.spaceOffset / 2;
 	}
 	
 	draw(x, y, style) {
@@ -190,11 +194,6 @@ class Keyboard {
 				} else {
 					this.spaceOffset = 0;
 				}
-				if (this.altOffset < - this.animationSpeed) {
-					this.altOffset += this.animationSpeed;
-				}else {
-					this.altOffset = 0;
-				}
 				for (let i = 0; i < this.yOffsets.length; i++) {
 					if (this.yOffsets[i] < - this.animationSpeed) {
 						this.yOffsets[i] += this.animationSpeed;
@@ -216,11 +215,6 @@ class Keyboard {
 					this.spaceOffset += this.animationSpeed;
 				} else {
 					this.spaceOffset = 0;
-				}
-				if (this.altOffset < - this.animationSpeed) {
-					this.altOffset += this.animationSpeed;
-				}else {
-					this.altOffset = 0;
 				}
 				for (let i = 0; i < this.yOffsets.length; i++) {
 					if (this.yOffsets[i] < - this.animationSpeed) {
@@ -247,6 +241,14 @@ class Keyboard {
 				
 				this.space.content = (Math.round(this.time / 60 * 100) / 100).toFixed(2);
 				this.alt.content = this.mistakes;
+				
+				if (this.mistakes > 0) {
+					if (this.altOffset < - this.animationSpeed) {
+						this.altOffset += this.animationSpeed;
+					} else {
+						this.altOffset = 0;
+					}
+				}
 				
 				this.time++;
 				for (let i = 0; i < 26; i++) {
@@ -293,7 +295,9 @@ class Keyboard {
 				}
 				if (this.scoreDelay == 0) {
 					this.spaceOffset += this.animationSpeed * 1.5;
-					this.altOffset += this.animationSpeed * 1.5;
+					if (this.mistakes > 0) {
+						this.altOffset += this.animationSpeed * 1.5;
+					}
 				}
 				
 				if (this.spaceOffset > this.spaceWidth * 2) {
