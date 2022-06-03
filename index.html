@@ -15,13 +15,31 @@
 </head>
 
 <body>
-	<nav>26quick.com</nav>
+	<nav class="navbar">
+		<a href="#" id="mainnav_user_btn" class="navbar-text" onClick="slide('user')">username</a>
+		<a href="#" id="mainnav_brand_btn" class="navbar-brand" onClick="slide('main')">26quick.com</a>
+		<a href="#" id="mainnav_lb_btn" class="navbar-text" onClick="slide('global')">leaderboards</a>
+	</nav>
+
+	<div class="pages">
+		<div class="page one">
+			<h1>PAGE 1</h1>
+		</div>
+		<div class="page two">
+			<div id="canvas"></div>
+		</div>
+		<div class="page three">
+			<h1>PAGE 3</h1>
+		</div>
+	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 		crossorigin="anonymous"></script>
+	<script src="scripts/setup.js"></script>
+	<script src="scripts/pageTransitions.js"></script>
 	<script src="scripts/p5.js"></script>
-	<script src="scripts/script.js"></script>
+	<script src="scripts/sketch.js"></script>
 </body>
 
 </html>

@@ -356,13 +356,13 @@ function setup() {
 
 	frameRate(60);
 	cnv = createCanvas(canvasWidth, canvasHeight);
-	cnv.class("canvas");
+	cnv.parent("canvas")
 
 }
 
 function draw() {
 
-	background("#2e0d2e");
+	background("#190916");
 
 	k.update();
 	k.draw(canvasWidth / 2, canvasHeight / 3, defaultStyle);

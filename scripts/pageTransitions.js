@@ -1,10 +1,19 @@
 const pages = document.querySelectorAll(".page");
-const translateAmount = 100;
-let translate = 0;
+let translate = -100;
 
-slide = (direction) => {
-    direction === "next" ? translate -= translateAmount : translate += translateAmount;
+slide = (page) => {
+    switch (page) {
+        case 'user':
+            translate = 0;
+            break;
+        case 'main':
+            translate = -100;
+            break;
+        case 'global':
+            translate = -200;
+            break;
+    }
     pages.forEach(
-        pages => (pages.style.transform = `translateX(${translate}%)`)
+        page => (page.style.transform = `translateX(${translate}%)`)
     );
 }
