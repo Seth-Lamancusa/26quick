@@ -23,7 +23,9 @@ class key {
 		text(this.content, x + this.w / 2, y + this.h / 2);
 	}
 
-	update() {
+	update(w, h) {
+		this.w = w;
+		this.h = h;
 		this.prevDown = this.isDown;
 		this.isDown = keyIsDown(this.code);
 	}
@@ -197,7 +199,16 @@ class Keyboard {
 
 	}
 
-	update() {
+	update(keySize) {
+
+		this.keySize = keySize;
+		this.altWidth = keySize * 1.3;
+		this.spaceWidth = keySize * 6.7;
+		for (let i = 0; i < this.keys.length; i++) {
+			this.keys[i].update(this.keySize, this.keySize);
+		}
+		this.space.update(this.spaceWidth, this.keySize);
+		this.alt.update(this.altWidth, this.keySize);
 
 		switch (this.state) {
 			case 0:
@@ -215,7 +226,7 @@ class Keyboard {
 					}
 				}
 
-				this.space.update();
+				this.space.update(this.spaceWidth, this.keySize);
 
 				if (this.space.isDown) {
 					this.startCountdown();
@@ -265,7 +276,6 @@ class Keyboard {
 
 				this.time++;
 				for (let i = 0; i < 26; i++) {
-					this.keys[i].update();
 					if (this.keys[i].isDown) {
 						if (this.keys[i].content == this.expectedNext) {
 							this.pressed[i] = true;
@@ -285,7 +295,10 @@ class Keyboard {
 						this.keys[i].appearance["stroke"] = this.pressed[i] ? this.style["downStroke"] : this.style["upStroke"];
 						this.keys[i].appearance["fill"] = this.pressed[i] ? this.style["downFill"] : this.style["upFill"];
 					}
+					this.keys[i].update(this.keySize, this.keySize);
 				}
+				this.space.update(this.spaceWidth, this.keySize);
+				this.alt.update(this.altWidth, this.keySize);
 
 				if (this.expectedNext == 27) {
 					for (let i = 0; i < 26; i++) {
@@ -345,8 +358,9 @@ let defaultStyle = {
 };
 
 let canvasWidth = 720;
-let canvasHeight = 480;
+let canvasHeight = (1 / 2) * canvasWidth;
 let cnv;
+let sketch = document.getElementById('sketch');
 
 let keySize = 50;
 
@@ -356,15 +370,21 @@ function setup() {
 
 	frameRate(60);
 	cnv = createCanvas(canvasWidth, canvasHeight);
-	cnv.parent("canvas")
+	cnv.parent("sketch");
 
 }
 
 function draw() {
 
+	sketchWidth = sketch.offsetWidth;
+	canvasWidth = sketchWidth;
+	canvasHeight = (1 / 2) * canvasWidth;
+	resizeCanvas(canvasWidth, canvasHeight);
+
 	background("#190916");
 
-	k.update();
-	k.draw(canvasWidth / 2, canvasHeight / 3, defaultStyle);
+	keySize = (1 / 15) * width;
+	k.update(keySize);
+	k.draw(canvasWidth / 2, canvasHeight / 2, defaultStyle);
 
 }

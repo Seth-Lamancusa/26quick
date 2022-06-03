@@ -57,4 +57,12 @@ body {
 	transform: translateX(-100%);
 }
 
+#sketch {
+	width: 33.33%;
+}
+
+#sketch>canvas {
+	width: 100%;
+}
+
 @media (max-width: 576px) {}
