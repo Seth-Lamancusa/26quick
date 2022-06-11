@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>26quick</title>
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Little bit of video game.">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +16,10 @@
 </head>
 
 <body>
-	<nav class="navbar">
-		<a href="#" id="mainnav_user_btn" class="navbar-text" onClick="slide('user')">username</a>
-		<a href="#" id="mainnav_brand_btn" class="navbar-brand" onClick="slide('main')">26quick.com</a>
-		<a href="#" id="mainnav_lb_btn" class="navbar-text" onClick="slide('global')">leaderboards</a>
+	<nav id="nav_main">
+		<a href="#" onClick="slide('user')">username</a>
+		<a href="#" class="nav_brand" onClick="slide('main')">26quick.com</a>
+		<a href="#" onClick="slide('global')">leaderboards</a>
 	</nav>
 
 	<div class="pages">

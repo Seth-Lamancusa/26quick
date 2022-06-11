@@ -90,7 +90,7 @@ class Keyboard {
 		this.keys[13].content = "1";
 		this.keys[14].content = "-";
 		this.keys[15].content = "2";
-		this.keys[16].content = "6";
+		this.keys[16].content = "26";
 
 	}
 
@@ -140,6 +140,8 @@ class Keyboard {
 	}
 
 	restart() {
+		// Make function to so this stuff here and in constructor
+
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
