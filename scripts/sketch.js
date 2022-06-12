@@ -32,25 +32,10 @@ class key {
 
 }
 
-
-
-
-
 class Keyboard {
 
 	constructor(keySize, style) {
-
 		this.style = style;
-		this.state = 0;
-		this.time = 0;
-		this.cdTime = 180;
-		this.scoreDelay = 60;
-		this.mistakes = 0;
-		this.keySize = keySize;
-
-		this.keycodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77];
-		this.spaceKeycode = 32;
-		this.altKeycode = 18;
 		this.defaultKeyApp = {
 			stroke: this.style["upStroke"],
 			fill: this.style["upFill"],
@@ -59,25 +44,22 @@ class Keyboard {
 			borderRad: this.style["borderRad"]
 		};
 
+		this.keycodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77];
+		this.spaceKeycode = 32;
+		this.altKeycode = 18;
+
+		this.keySize = keySize;
 		this.altWidth = keySize * 1.3;
 		this.spaceWidth = keySize * 6.7;
 
 		this.pressed = new Array(26);
 		this.immune = new Array(26);
-		this.pressed.fill(false);
-		this.immune.fill(false);
 
 		this.kbOffset = - 2 * this.spaceWidth;
 		this.yOffsets = new Array(26);
-		for (let i = 0; i < this.yOffsets.length; i++) {
-			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
-		}
-		this.spaceOffset = - 2 * this.spaceWidth;
-		this.altOffset = this.spaceOffset / 2;
 		this.animationSpeed = 15;
 
 		this.numbers = new Array(26);
-		this.expectedNext = 1;
 
 		this.keys = new Array(26);
 		for (let i = 0; i < 26; i++) {
@@ -85,13 +67,8 @@ class Keyboard {
 		}
 		this.space = new key(this.spaceWidth, this.keySize, "start", this.spaceKeycode, Object.assign({}, this.defaultKeyApp));
 		this.alt = new key(this.altWidth, this.keySize, "", this.altKeycode, Object.assign({}, this.defaultKeyApp));
-		this.alt.appearance["fill"] = this.style["upMistakeFill"];
-		this.alt.appearance["stroke"] = this.style["upMistakeStroke"];
-		this.keys[13].content = "1";
-		this.keys[14].content = "-";
-		this.keys[15].content = "2";
-		this.keys[16].content = "26";
 
+		this.initialize();
 	}
 
 	static shuffle(array) {
@@ -139,16 +116,14 @@ class Keyboard {
 		this.keys[16].content = "";
 	}
 
-	restart() {
-		// Make function to so this stuff here and in constructor
-
+	initialize() {
 		this.state = 0;
 		this.time = 0;
 		this.cdTime = 180;
 		this.scoreDelay = 60;
 		this.mistakes = 0;
-
 		this.expectedNext = 1;
+
 		for (let i = 0; i < 26; i++) {
 			this.keys[i].content = "";
 		}
@@ -158,9 +133,11 @@ class Keyboard {
 		this.keys[16].content = "6";
 		this.space.content = "start";
 		this.alt.content = "";
-		for (let i = 0; i < 26; i++) {
+
+		for (let i = 0; i < this.keys.length; i++) {
 			this.keys[i].appearance = Object.assign({}, this.defaultKeyApp);
 			this.pressed[i] = false;
+			this.immune[i] = false;
 		}
 		this.space.appearance = Object.assign({}, this.defaultKeyApp);
 		this.alt.appearance = Object.assign({}, this.defaultKeyApp);
@@ -174,8 +151,7 @@ class Keyboard {
 		this.altOffset = this.spaceOffset / 2;
 	}
 
-	draw(x, y, style) {
-
+	draw(x, y) {
 		let rowOffsets = [0, 2 * this.keySize / 7, this.keySize, this.keySize * 1.3];
 
 		/* draws row 1 of letter keys */
@@ -198,11 +174,9 @@ class Keyboard {
 			y + 3 * (this.keySize + this.keySize / 7) - this.height() / 2);
 		this.alt.draw(x + this.altOffset + rowOffsets[3] - this.width() / 2,
 			y + 3 * (this.keySize + this.keySize / 7) - this.height() / 2);
-
 	}
 
 	update(keySize) {
-
 		this.keySize = keySize;
 		this.altWidth = keySize * 1.3;
 		this.spaceWidth = keySize * 6.7;
@@ -329,12 +303,11 @@ class Keyboard {
 				}
 
 				if (this.spaceOffset > this.spaceWidth * 2) {
-					this.restart();
+					this.initialize();
 				}
 
 				break;
 		}
-
 	}
 
 }
@@ -387,6 +360,6 @@ function draw() {
 
 	keySize = (1 / 15) * width;
 	k.update(keySize);
-	k.draw(canvasWidth / 2, canvasHeight / 2, defaultStyle);
+	k.draw(canvasWidth / 2, canvasHeight / 2);
 
 }

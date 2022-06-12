@@ -1,7 +1,11 @@
+.mobile {
+	display: none;
+}
+
 #nav_main {
-	background: none;
+	background-color: #222;
 	padding: 10px;
-	border: none;
+	border-bottom: 1px solid #555;
 	margin: 0;
 	box-sizing: border-box;
 	display: flex;
@@ -38,7 +42,9 @@ body {
 .page {
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: nowrap;
 	transition: all 0.7s;
 	color: white;
 	transform: translateX(-100%);
@@ -52,19 +58,62 @@ body {
 	width: 100%;
 }
 
+.flip-card {
+	width: 300px;
+	height: 300px;
+	perspective: 1000px;
+}
+
+.flip-card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.6s;
+	transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+	transform: rotateY(180deg);
+	background-color: green;
+}
+
+.flip-card-front,
+.flip-card-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+}
+
+.flip-card-front {
+	background-color: #bbb;
+	color: black;
+}
+
+.flip-card-back {
+	background-color: #2980b9;
+	color: white;
+	transform: rotateY(180deg);
+}
+
 @media (max-width: 576px) {
-	nav_main>* {
-		display: hidden;
+	#nav_main>* {
+		display: none;
 	}
 
-	nav_main>.nav_brand {
-		display: inline;
+	.nav_brand,
+	.mobile {
+		display: inline !important;
 	}
 }
 
 @media (max-width: 768px) {}
 
-@media (max-width: 992px) {}
+@media (max-width: 992px) {
+	#sketch {
+		width: 90%;
+	}
+}
 
 @media (max-width: 1200px) {}
 
