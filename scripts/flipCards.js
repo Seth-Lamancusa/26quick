@@ -1,9 +1,14 @@
-flip = (id) => {
-    const inner = document.querySelector("#" + id + ">*");
+let state = [];
 
-    if (getComputedStyle(inner).transform == `matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)`) {
-        inner.style.transform = `rotateY(0deg)`;
-    } else {
+flip = (id) => {
+    const inner = document.querySelector("#card_" + id + ">*");
+
+    console.log(state);
+    if (state[id] != 1) {
         inner.style.transform = `rotateY(180deg)`;
+        state[id] = 1;
+    } else {
+        inner.style.transform = `rotateY(0deg)`;
+        state[id] = 0;
     }
 }
