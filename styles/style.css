@@ -15,6 +15,13 @@
 	align-items: center;
 }
 
+footer {
+	background-color: #000;
+	border-top: 1px solid #555;
+	margin-top: 50px;
+	height: 100px;
+}
+
 .nav_item {
 	margin: 0;
 	border: none;
@@ -49,15 +56,14 @@
 
 body {
 	font-family: 'Space Mono', monospace;
-	background-color: #190916;
-	overflow: hidden;
+	background-color: #160714;
+	overflow-x: hidden;
 }
 
 .pages {
 	display: flex;
 	width: 300%;
 	padding: 0;
-	height: 100vh;
 	box-sizing: border-box;
 	clip-path: content-box;
 }
@@ -74,17 +80,35 @@ body {
 }
 
 #sketch {
-	width: 50%;
+	width: 50vw;
 }
 
 #sketch>canvas {
 	width: 100%;
 }
 
+svg {
+	fill: #bbb;
+}
+
 .flip-card {
-	width: 300px;
-	height: 300px;
 	perspective: 1000px;
+}
+
+.flip-card h1 {
+	color: #bbb;
+	font-weight: 400;
+	font-size: medium;
+	margin: 5px;
+	padding: 0;
+}
+
+.flip-card p {
+	color: #999;
+	font-size: small;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
 }
 
 .flip-card-inner {
@@ -100,14 +124,54 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color: #707070;
+	background-color: #090909;
 	backface-visibility: hidden;
-	border: 1px solid #707070;
+	border: 1px solid #555;
 	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .flip-card-back {
 	transform: rotateY(180deg);
+}
+
+.cardnav {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+}
+
+#card_2,
+#card_3 {
+	width: 20vw;
+	height: 20vw;
+}
+
+#card_1 {
+	width: 30vw;
+	height: 500px;
+}
+
+#play_area {
+	margin: 0;
+	border: none;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+#card_2 .pfp {
+	width: 20%;
+	height: 20%;
+	clip-path: circle(50%);
+	border: 2px solid #555;
+	border-radius: 50%;
 }
 
 @media (max-width: 576px) {
@@ -119,13 +183,22 @@ body {
 	.mobile {
 		display: inline !important;
 	}
+
+	#card_1 {
+		width: 60vw;
+	}
 }
 
 @media (max-width: 768px) {}
 
 @media (max-width: 992px) {
 	#sketch {
-		width: 90%;
+		width: 90vw;
+	}
+
+	#card_2,
+	#card_3 {
+		display: none;
 	}
 }
 

@@ -356,7 +356,7 @@ function draw() {
 	canvasHeight = (1 / 2) * canvasWidth;
 	resizeCanvas(canvasWidth, canvasHeight);
 
-	background("#190916");
+	background("#160714");
 
 	keySize = (1 / 15) * width;
 	k.update(keySize);
