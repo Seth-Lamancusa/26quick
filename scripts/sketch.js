@@ -26,6 +26,8 @@ class key {
 	update(w, h) {
 		this.w = w;
 		this.h = h;
+		this.appearance.borderRad = keySize / 7;
+		this.appearance.strokeWeight = keySize / 25;
 		this.prevDown = this.isDown;
 		this.isDown = keyIsDown(this.code);
 	}
