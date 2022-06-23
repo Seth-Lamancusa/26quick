@@ -206,7 +206,7 @@ class Keyboard {
 
 				this.space.update(this.spaceWidth, this.keySize);
 
-				if (this.space.isDown) {
+				if (this.space.isDown && ingame) {
 					this.startCountdown();
 				}
 
@@ -254,7 +254,7 @@ class Keyboard {
 
 				this.time++;
 				for (let i = 0; i < 26; i++) {
-					if (this.keys[i].isDown) {
+					if (this.keys[i].isDown && ingame) {
 						if (this.keys[i].content == this.expectedNext) {
 							this.pressed[i] = true;
 							this.immune[i] = true;
@@ -333,6 +333,28 @@ let defaultStyle = {
 	font: "Courier New",
 	borderRad: 7
 };
+
+
+
+
+let ingame = true;
+
+window.addEventListener("click", (e) => {
+	console.log(e.target);
+	if (e.target === document.getElementsByTagName("canvas")[0]) {
+		ingame = true;
+	} else {
+		ingame = false;
+	}
+});
+
+window.addEventListener('keydown', e => {
+	if (e.key === ' ' && ingame) {
+		e.preventDefault();
+	}
+});
+
+
 
 let canvasWidth = 720;
 let canvasHeight = (1 / 2) * canvasWidth;
