@@ -20,7 +20,7 @@ class key {
 		textSize(this.h / 2);
 		textFont(this.appearance["font"]);
 		textAlign(CENTER, CENTER);
-		text(this.content, x + this.w / 2, y + this.h / 2);
+		text(this.content, x + this.w / 2, y + this.h / 2 + 1);
 	}
 
 	update(w, h) {

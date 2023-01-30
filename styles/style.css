@@ -136,25 +136,18 @@ table {
 
 /* End of CSS reset */
 
-.mobile {
-	display: none;
+body {
+	font-family: 'Space Mono', monospace;
+	background-color: #160714;
+	overflow-x: hidden;
 }
 
-#nav_main {
-	background-color: #222;
-	padding: 10px;
-	border-bottom: 1px solid #555;
-	margin: 0;
-	box-sizing: border-box;
-	position: sticky;
-	top: 0;
-	left: 0;
-	z-index: 999;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: center;
+p {
+	line-height: 120%;
+}
+
+li {
+	margin: 10px;
 }
 
 footer {
@@ -179,6 +172,23 @@ footer>a:hover {
 	color: #bbb;
 }
 
+svg {
+	fill: #bbb;
+}
+
+*::-webkit-scrollbar {
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	display: none;
+}
+
+* {
+	/* Hide scrollbar for IE, Edge and Firefox */
+	/* IE and Edge */
+	-ms-overflow-style: none;
+	/* Firefox */
+	scrollbar-width: none;
+}
+
 .icons {
 	display: flex;
 	justify-content: flex-start;
@@ -189,76 +199,16 @@ footer>a:hover {
 	margin: 5px;
 }
 
-.nav_item {
-	margin: 0;
-	border: none;
-	padding: 0;
+.tall {
+	grid-row: 1 / span 2;
 }
 
-.nav_item:nth-child(1) {
-	text-align: left;
+.taller {
+	grid-row: 1 / span 3;
 }
 
-.nav_item:nth-child(2) {
-	text-align: center;
-}
-
-.nav_item:nth-child(3) {
-	text-align: right;
-}
-
-#nav_main>.nav_item {
-	flex-basis: 30%;
-}
-
-.nav_item>*,
-.nav_item>*:hover {
-	font-size: 1em;
-	text-decoration: none;
-	color: #BBBBBB;
-}
-
-.nav_brand,
-.nav_brand:hover {
-	font-size: 1.2em;
-}
-
-body {
-	font-family: 'Space Mono', monospace;
-	background-color: #160714;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
-
-.pages {
-	display: flex;
-	width: 300%;
-	padding: 0;
-	box-sizing: border-box;
-	clip-path: content-box;
-}
-
-.page {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	flex-wrap: nowrap;
-	transition: all 0.7s;
-	color: white;
-	transform: translateX(-100%);
-}
-
-#sketch {
-	width: 50vw;
-}
-
-#sketch>canvas {
-	width: 100%;
-}
-
-svg {
-	fill: #bbb;
+.tallest {
+	grid-row: 1 / span 4;
 }
 
 .flip-card {
@@ -314,14 +264,85 @@ svg {
 	right: 3px;
 }
 
-#card_0 {
-	width: 16vw;
-	height: 16vw;
+#nav_main {
+	background-color: #222;
+	padding: 10px;
+	border-bottom: 1px solid #555;
+	margin: 0;
+	box-sizing: border-box;
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
 }
 
-#card_1 {
-	width: 16vw;
-	height: 16vw;
+.nav_item {
+	margin: 0;
+	border: none;
+	padding: 0;
+}
+
+.nav_item:nth-child(1) {
+	text-align: left;
+}
+
+.nav_item:nth-child(2) {
+	text-align: center;
+}
+
+.nav_item:nth-child(3) {
+	text-align: right;
+}
+
+#nav_main>.nav_item {
+	flex-basis: 30%;
+}
+
+.nav_item>*,
+.nav_item>*:hover {
+	font-size: 1em;
+	text-decoration: none;
+	color: #BBBBBB;
+}
+
+.nav_brand,
+.nav_brand:hover {
+	font-size: 1.2em;
+}
+
+.pages {
+	display: flex;
+	width: 300%;
+	padding: 0;
+	box-sizing: border-box;
+	clip-path: content-box;
+}
+
+.page {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: nowrap;
+	transition: all 0.7s;
+	color: white;
+	transform: translateX(-100%);
+}
+
+#banner {
+	display: block;
+	margin: 30px 0 0 0;
+	padding: 10px;
+	width: 65%;
+	background-color: #2a1342;
+	border: 5px solid #bbb;
+	border-radius: 10px;
+	color: #bbb;
 }
 
 #play_area {
@@ -336,6 +357,27 @@ svg {
 	flex-wrap: nowrap;
 }
 
+#sketch {
+	width: 50vw;
+}
+
+#sketch>canvas {
+	width: 100%;
+}
+
+#misc_data {
+	width: 90%;
+	display: grid;
+	gap: 3vw;
+	grid-template-rows: repeat(4, minmax(260px, 1fr));
+	grid-template-columns: repeat(3, minmax(160px, 1fr));
+}
+
+#card_0 {
+	width: 16vw;
+	height: 16vw;
+}
+
 #card_0 .pfp {
 	width: 20%;
 	height: 20%;
@@ -344,25 +386,9 @@ svg {
 	border-radius: 50%;
 }
 
-#misc_data {
-	width: 90%;
-	display: grid;
-	gap: 3vw;
-
-	grid-template-rows: repeat(4, minmax(260px, 1fr));
-	grid-template-columns: repeat(3, minmax(160px, 1fr));
-}
-
-.tall {
-	grid-row: 1 / span 2;
-}
-
-.taller {
-	grid-row: 1 / span 3;
-}
-
-.tallest {
-	grid-row: 1 / span 4;
+#card_1 {
+	width: 16vw;
+	height: 16vw;
 }
 
 #card_3 {
@@ -372,6 +398,10 @@ svg {
 #card_4 {
 	grid-row-start: 2;
 	grid-column: 3;
+}
+
+.mobile {
+	display: none;
 }
 
 @media (max-width: 1400px) {}
