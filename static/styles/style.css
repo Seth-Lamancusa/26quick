@@ -136,10 +136,20 @@ table {
 
 /* End of CSS reset */
 
+html {
+	height: 100%;
+}
+
 body {
 	font-family: 'Space Mono', monospace;
 	background-color: #160714;
 	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.content {
+	min-height: calc(100vh - 125px);
 }
 
 p {
@@ -154,7 +164,8 @@ footer {
 	background-color: #000;
 	border-top: 1px solid #555;
 	margin-top: 50px;
-	height: 125px;
+	margin-bottom: 0;
+	height: 75px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -334,6 +345,7 @@ svg {
 	transform: translateX(-100%);
 }
 
+/* Info banner */
 #banner {
 	display: block;
 	margin: 30px 0 0 0;

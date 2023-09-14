@@ -1,3 +1,6 @@
+
+let socket = io.connect('http://localhost:5000');
+
 class key {
 
 	constructor(w, h, content, code, appearance) {
@@ -125,6 +128,7 @@ class Keyboard {
 		this.scoreDelay = 60;
 		this.mistakes = 0;
 		this.expectedNext = 1;
+		this.record = {};
 
 		for (let i = 0; i < 26; i++) {
 			this.keys[i].content = "";
@@ -284,6 +288,7 @@ class Keyboard {
 						this.keys[i].appearance["fill"] = this.style["downFill"];
 					}
 
+					socket.emit('message', 'Game complete!');
 					this.state = 3;
 				}
 
