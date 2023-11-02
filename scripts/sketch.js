@@ -50,6 +50,34 @@ class Keyboard {
 		};
 
 		this.keycodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77];
+		this.indexKeys = {
+			0: "q",
+			1: "w",
+			2: "e",
+			3: "r",
+			4: "t",
+			5: "y",
+			6: "u",
+			7: "i",
+			8: "o",
+			9: "p",
+			10: "a",
+			11: "s",
+			12: "d",
+			13: "f",
+			14: "g",
+			15: "h",
+			16: "j",
+			17: "k",
+			18: "l",
+			19: "z",
+			20: "x",
+			21: "c",
+			22: "v",
+			23: "b",
+			24: "n",
+			25: "m"
+		}
 		this.spaceKeycode = 32;
 		this.altKeycode = 18;
 
@@ -238,13 +266,15 @@ class Keyboard {
 					this.space.content = "1";
 				} else if (this.cdTime == 0) {
 					this.start();
+
+					const dateTime = new Date();
+					localStorage.setItem(dateTime, "start");
 				}
 
 				this.cdTime--;
 
 				break;
 			case 2:
-
 				this.space.content = (Math.round(this.time / 60 * 100) / 100).toFixed(2);
 				this.alt.content = this.mistakes;
 
@@ -258,6 +288,15 @@ class Keyboard {
 
 				this.time++;
 				for (let i = 0; i < 26; i++) {
+					if (this.keys[i].isDown && !this.keys[i].prevDown) {
+						const dateTime = new Date();
+						localStorage.setItem(dateTime, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
+					}
+					if (!this.keys[i].isDown && this.keys[i].prevDown) {
+						const dateTime = new Date();
+						localStorage.setItem(dateTime, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
+					}
+
 					if (this.keys[i].isDown && ingame) {
 						if (this.keys[i].content == this.expectedNext) {
 							this.pressed[i] = true;
@@ -287,6 +326,9 @@ class Keyboard {
 						this.keys[i].appearance["stroke"] = this.style["downStroke"];
 						this.keys[i].appearance["fill"] = this.style["downFill"];
 					}
+
+					const dateTime = new Date();
+					localStorage.setItem(dateTime, "end");
 
 					socket.emit('message', 'Game complete!');
 					this.state = 3;
