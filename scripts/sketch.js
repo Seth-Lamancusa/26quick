@@ -1,6 +1,3 @@
-
-let socket = io.connect('http://localhost:5000');
-
 class key {
 
 	constructor(w, h, content, code, appearance) {
@@ -268,7 +265,8 @@ class Keyboard {
 					this.start();
 
 					const dateTime = new Date();
-					localStorage.setItem(dateTime, "start");
+					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+					localStorage.setItem(timestamp, "start");
 				}
 
 				this.cdTime--;
@@ -290,11 +288,15 @@ class Keyboard {
 				for (let i = 0; i < 26; i++) {
 					if (this.keys[i].isDown && !this.keys[i].prevDown) {
 						const dateTime = new Date();
-						localStorage.setItem(dateTime, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
+						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
+						print(localStorage.getItem(timestamp));
 					}
 					if (!this.keys[i].isDown && this.keys[i].prevDown) {
 						const dateTime = new Date();
-						localStorage.setItem(dateTime, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
+						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
+						print(localStorage.getItem(timestamp));
 					}
 
 					if (this.keys[i].isDown && ingame) {
@@ -328,9 +330,9 @@ class Keyboard {
 					}
 
 					const dateTime = new Date();
-					localStorage.setItem(dateTime, "end");
+					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+					localStorage.setItem(timestamp, "end");
 
-					socket.emit('message', 'Game complete!');
 					this.state = 3;
 				}
 
