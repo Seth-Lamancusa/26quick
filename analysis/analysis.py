@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 
-DATAFILE = "localStorage_2023-11-06_05-32-26.json"  # replace 'your_json_filename.json' with your actual file name
+DATAFILE = "localStorage_2023-11-06_15-48-31.json"  # replace 'your_json_filename.json' with your actual file name
 
 # Define the relative path to the JSON file
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +34,13 @@ sorted_data = sorted(
 )
 
 # Write to CSV
-csv_file_path = os.path.join(data_folder, "output.csv")
+if DATAFILE.startswith("localStorage_") and DATAFILE.endswith(".json"):
+    # Replace 'localStorage' with 'output' and change the extension to '.csv'
+    output_filename = "output" + DATAFILE[len("localStorage") : -len(".json")] + ".csv"
+else:
+    raise ValueError("Filename does not match expected pattern.")
+
+csv_file_path = os.path.join(data_folder, output_filename)
 with open(csv_file_path, "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(["Datetime", "Key", "Number", "Action", "Time", "Mistakes"])

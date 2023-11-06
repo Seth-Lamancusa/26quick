@@ -176,7 +176,7 @@ class Keyboard {
 		this.alt.appearance["stroke"] = this.style["upMistakeStroke"];
 
 		for (let i = 0; i < this.yOffsets.length; i++) {
-			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3);
+			this.yOffsets[i] = this.kbOffset + i * (this.keySize / 3) - 150;
 		}
 		this.spaceOffset = - 2 * this.spaceWidth;
 		this.altOffset = this.spaceOffset / 2;
@@ -286,6 +286,19 @@ class Keyboard {
 
 				this.time++;
 				for (let i = 0; i < 26; i++) {
+					if (this.expectedNext == 27) {
+						for (let i = 0; i < 26; i++) {
+							this.keys[i].appearance["stroke"] = this.style["downStroke"];
+							this.keys[i].appearance["fill"] = this.style["downFill"];
+						}
+
+						const dateTime = new Date();
+						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(timestamp, "end");
+
+						this.state = 3;
+					}
+
 					if (this.keys[i].isDown && !this.keys[i].prevDown) {
 						const dateTime = new Date();
 						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
@@ -318,23 +331,11 @@ class Keyboard {
 						this.keys[i].appearance["stroke"] = this.pressed[i] ? this.style["downStroke"] : this.style["upStroke"];
 						this.keys[i].appearance["fill"] = this.pressed[i] ? this.style["downFill"] : this.style["upFill"];
 					}
+
 					this.keys[i].update(this.keySize, this.keySize);
 				}
 				this.space.update(this.spaceWidth, this.keySize);
 				this.alt.update(this.altWidth, this.keySize);
-
-				if (this.expectedNext == 27) {
-					for (let i = 0; i < 26; i++) {
-						this.keys[i].appearance["stroke"] = this.style["downStroke"];
-						this.keys[i].appearance["fill"] = this.style["downFill"];
-					}
-
-					const dateTime = new Date();
-					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-					localStorage.setItem(timestamp, "end");
-
-					this.state = 3;
-				}
 
 				break;
 			case 3:
