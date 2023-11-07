@@ -276,6 +276,8 @@ class Keyboard {
 				this.space.content = (Math.round(this.time / 60 * 100) / 100).toFixed(2);
 				this.alt.content = this.mistakes;
 
+				this.time++;
+
 				if (this.mistakes > 0) {
 					if (this.altOffset < - this.animationSpeed) {
 						this.altOffset += this.animationSpeed;
@@ -284,32 +286,29 @@ class Keyboard {
 					}
 				}
 
-				this.time++;
-				for (let i = 0; i < 26; i++) {
-					if (this.expectedNext == 27) {
-						for (let i = 0; i < 26; i++) {
-							this.keys[i].appearance["stroke"] = this.style["downStroke"];
-							this.keys[i].appearance["fill"] = this.style["downFill"];
-						}
-
-						const dateTime = new Date();
-						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-						localStorage.setItem(timestamp, "end");
-
-						this.state = 3;
+				if (this.expectedNext == 27) {
+					for (let i = 0; i < 26; i++) {
+						this.keys[i].appearance["stroke"] = this.style["downStroke"];
+						this.keys[i].appearance["fill"] = this.style["downFill"];
 					}
 
+					const dateTime = new Date();
+					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+					localStorage.setItem(timestamp, "end");
+
+					this.state = 3;
+				}
+
+				for (let i = 0; i < 26; i++) {
 					if (this.keys[i].isDown && !this.keys[i].prevDown) {
 						const dateTime = new Date();
 						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
 						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
-						print(localStorage.getItem(timestamp));
 					}
 					if (!this.keys[i].isDown && this.keys[i].prevDown) {
 						const dateTime = new Date();
 						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
 						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
-						print(localStorage.getItem(timestamp));
 					}
 
 					if (this.keys[i].isDown && ingame) {
