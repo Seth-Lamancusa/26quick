@@ -149,6 +149,8 @@ class Keyboard {
 	initialize() {
 		this.state = 0;
 		this.time = 0;
+		this.startTime = 0;
+		this.endTime = 0;
 		this.cdTime = 180;
 		this.scoreDelay = 60;
 		this.mistakes = 0;
@@ -264,9 +266,10 @@ class Keyboard {
 				} else if (this.cdTime == 0) {
 					this.start();
 
+					// Set start record
 					const dateTime = new Date();
-					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-					localStorage.setItem(timestamp, "start");
+					this.startTime = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+					localStorage.setItem(this.startTime, "start");
 				}
 
 				this.cdTime--;
@@ -286,20 +289,8 @@ class Keyboard {
 					}
 				}
 
-				if (this.expectedNext == 27) {
-					for (let i = 0; i < 26; i++) {
-						this.keys[i].appearance["stroke"] = this.style["downStroke"];
-						this.keys[i].appearance["fill"] = this.style["downFill"];
-					}
-
-					const dateTime = new Date();
-					const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-					localStorage.setItem(timestamp, "end");
-
-					this.state = 3;
-				}
-
 				for (let i = 0; i < 26; i++) {
+					// Set key press records
 					if (this.keys[i].isDown && !this.keys[i].prevDown) {
 						const dateTime = new Date();
 						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
@@ -331,8 +322,25 @@ class Keyboard {
 						this.keys[i].appearance["fill"] = this.pressed[i] ? this.style["downFill"] : this.style["upFill"];
 					}
 
+					if (this.expectedNext == 27) {
+						for (let i = 0; i < 26; i++) {
+							this.keys[i].appearance["stroke"] = this.style["downStroke"];
+							this.keys[i].appearance["fill"] = this.style["downFill"];
+						}
+
+						// Set end record and update session plot
+						const dateTime = new Date();
+						this.endTime = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(this.endTime, "end");
+						updateSessionPlot();
+
+						this.state = 3;
+						break;
+					}
+
 					this.keys[i].update(this.keySize, this.keySize);
 				}
+
 				this.space.update(this.spaceWidth, this.keySize);
 				this.alt.update(this.altWidth, this.keySize);
 

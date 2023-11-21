@@ -138,6 +138,8 @@ table {
 
 html {
 	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -146,9 +148,13 @@ body {
 	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .content {
+	flex: 1;
 	min-height: calc(100vh - 125px);
 }
 
@@ -161,10 +167,12 @@ li {
 }
 
 footer {
+	position: sticky;
+	bottom: 0;
 	background-color: #000;
 	border-top: 1px solid #555;
-	margin-top: 50px;
-	margin-bottom: 0;
+	margin-top: 0;
+	margin-bottom: -20px;
 	height: 75px;
 	display: flex;
 	flex-direction: row;
@@ -288,7 +296,7 @@ svg {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 
@@ -296,8 +304,10 @@ svg {
 	margin: 0;
 	border: none;
 	padding: 0;
+	text-align: center;
 }
 
+/* 
 .nav_item:nth-child(1) {
 	text-align: left;
 }
@@ -309,6 +319,7 @@ svg {
 .nav_item:nth-child(3) {
 	text-align: right;
 }
+*/
 
 #nav_main>.nav_item {
 	flex-basis: 30%;
@@ -332,6 +343,7 @@ svg {
 	padding: 0;
 	box-sizing: border-box;
 	clip-path: content-box;
+	margin-bottom: 0px;
 }
 
 .page {
@@ -352,14 +364,17 @@ svg {
 	padding: 10px;
 	width: 65%;
 	background-color: #2a1342;
-	border: 5px solid #bbb;
+	border: 3px solid #bbb;
 	border-radius: 10px;
 	color: #bbb;
 }
 
+#banner p {
+	margin: 5px;
+}
+
 #play_area {
 	margin: 0;
-	margin-bottom: 20px;
 	border: none;
 	padding: 0;
 	display: flex;
@@ -398,9 +413,33 @@ svg {
 	border-radius: 50%;
 }
 
+#card_0 #localStorageButtons {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#card_0 #localStorageButtons>* {
+	margin: 10px;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #2a1342;
+	color: #c8c8c8;
+	border: 1px solid #c8c8c8;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+#card_0 #localStorage_desc {
+	font-size: .8vw;
+	margin: 25px;
+	text-align: left;
+}
+
 #card_1 {
 	width: 16vw;
 	height: 16vw;
+	text-align: center;
 }
 
 #card_3 {

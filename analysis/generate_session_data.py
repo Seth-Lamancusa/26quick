@@ -5,9 +5,10 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 # Define the relative path to the input json file
-input_file_path = "analysis/data/session_3/localStorage_2023-11-08_05-56-13.json"
-output_folder = "analysis/data/session_3"
+input_file_path = "analysis/data/session_4/localStorage_2023-11-10_04-29-45.json"
+output_folder = "analysis/data/session_4"
 
 
 # Convert raw data from localStorage json data to csv
@@ -45,7 +46,7 @@ def localStorage_to_raw(input_file_path, output_folder):
 
 
 ### Get session data from raw data
-def raw_to_session(input_file_path, output_folder):
+def raw_to_session(input_file_path, output_folder, outlier_threshold=(25000, 10)):
     # Read and sort the data
     data = pd.read_csv(input_file_path, parse_dates=["Datetime"])
     data.sort_values("Datetime", inplace=True)
@@ -66,6 +67,16 @@ def raw_to_session(input_file_path, output_folder):
             output_data.append(current_run)
         else:
             current_run["Total Mistakes"] = row["Mistakes"]
+
+    # Remove outliers
+    output_data = [
+        row
+        for row in output_data
+        if (
+            float(row["Total Time Taken (ms)"]) < outlier_threshold[0]
+            and float(row["Total Mistakes"]) < outlier_threshold[1]
+        )
+    ]
 
     # Convert the output data to a pandas DataFrame
     output_df = pd.DataFrame(output_data)
@@ -104,6 +115,9 @@ def generate_text_summary(input_file_path, output_folder):
     quantile_25_mistakes = df["Total Mistakes"].quantile(0.25)
     quantile_75_mistakes = df["Total Mistakes"].quantile(0.75)
 
+    # Calculate correlation between mistakes and time
+    correlation = df["Total Time Taken (ms)"].corr(df["Total Mistakes"])
+
     # Format output filename based on input filename
     input_file_name = os.path.basename(input_file_path)
     date_time_str = input_file_name.replace("session_", "").replace(".csv", "")
@@ -129,6 +143,8 @@ def generate_text_summary(input_file_path, output_folder):
         file.write(f"Most Mistakes: {worst_mistakes}\n")
         file.write(f"25th Quantile Mistakes: {quantile_25_mistakes}\n")
         file.write(f"75th Quantile Mistakes: {quantile_75_mistakes}\n")
+        file.write("\n")
+        file.write(f"Correlation between Time and Mistakes: {correlation}\n")
 
     print(f"Summary file created: {output_file_path}")
     return output_file_path
@@ -168,5 +184,5 @@ def generate_plot(input_file_path, output_folder):
 
 raw_path = localStorage_to_raw(input_file_path, output_folder)
 session_path = raw_to_session(raw_path, output_folder)
-generate_text_summary(session_path, output_folder)
+summary_path = generate_text_summary(session_path, output_folder)
 generate_plot(session_path, output_folder)
