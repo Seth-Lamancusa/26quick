@@ -48,7 +48,7 @@ By its nature this is a very expandable project, and something of a perpetual wo
   - *Microscopic*
       + Is there a common relative mistake location given a target key?
       + Per run, does average distance between consecutive keys predict time? Per key press?
-      + Is accuracy different for each row of keys? Does target key location predict mistakes?
+      + Is accuracy different for each row of keys? Does target key location predict mistakes generally?
       + Does target number predict mistakes?
   - *Macroscopic*
       + How long does it take to "warm up"? I'll take a rolling average over many sessions and identify peak performance window.
