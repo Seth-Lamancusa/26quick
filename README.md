@@ -27,18 +27,21 @@ Once you've played the game for a while and want to further analyze your data, c
 3) Place the downloaded .json file into this folder.
 4) Edit the file "generate_session_data.py" to include the correct .json filename and output folder path. The paths are currently configured to work in the "session_n" example directory.
   * ![Screenshot of relevant lines](images/i_o.png)
-5) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files:
+5) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files and a folder called "lm":
   * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes
   * **raw_YYYY-MM-DD_HH-MM-SS.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs
   * **session_YYYY-MM-DD_HH-MM-SS.csv**: a .csv file in which rows describe full runs
   * **summary_YYYY-MM-DD_HH-MM-SS.txt**: a .txt file giving summary statistics for the whole session
+  * **lm**: a folder containing a summary and scatter plot of a one-factor (Total Mistakes) linear model fit to your session data
 
 Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session_YYYY-MM-DD_HH-MM-SS.csv". Useful for when a friend hops in for a few runs.
 
 ### Insights
 
-So far, one insight stands out:
-* Mistakes correlates highly with time. The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster at the expense of that mistakes counter.
+Session 1: two insights have been drawn from a two-factor linear model fit to one set of session data (n=100).
+* Mistakes correlates highly with time taken. The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
+* Layout difficultly plays a very small role in determining time taken, if any. Often while playing I notice strings of consecutive numbers which are adjacent or close to each other, enabling me to find and press them very quickly. Conversely, numbers that are further away from the one I just pressed feel like they take longer to find and press. I expected layout difficulty, assessed by the average distance between two consecutive keys within a run, to be a major predictor of time taken, but it turns out not to be the case. This is likely due to the relatively low layout difficulty standard deviation. Because there are so many numbers, the average distance between keys for a run turns out to be very similar from run to run (sd=6.26).
+* ![Linear model with Mistakes and Layout Difficulty as factors](images/lm_plot.png)
 
 ### Direction
 
@@ -47,7 +50,6 @@ By its nature this is a very expandable project, and something of a perpetual wo
 * **Research questions**:
   - *Microscopic*
       + Is there a common relative mistake location given a target key?
-      + Per run, does average distance between consecutive keys predict time? Per key press?
       + Is accuracy different for each row of keys? Does target key location predict mistakes generally?
       + Does target number predict mistakes?
   - *Macroscopic*
