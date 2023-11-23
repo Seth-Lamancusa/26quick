@@ -1,9 +1,25 @@
-Model parameters: Intercept = 15202.475654839644, Coefficients = [359.34984065 -24.21106445]
-Coefficient of determination (R^2): 0.21756545943293903
-Model parameters and hypothesis test results:
-Intercept: 
-15202.48 (t=8.47, p=0.00), 
-Coefficients: 
-359.35 (t=5.18, p=0.00), 
--24.21 (t=-0.87, p=0.39)
-Coefficient of determination (R^2): 0.21756545943293903
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.212
+Model:                            OLS   Adj. R-squared:                  0.203
+Method:                 Least Squares   F-statistic:                     26.29
+Date:                Thu, 23 Nov 2023   Prob (F-statistic):           1.48e-06
+Time:                        14:33:55   Log-Likelihood:                -886.61
+No. Observations:                 100   AIC:                             1777.
+Df Residuals:                      98   BIC:                             1782.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       1.368e+04    382.197     35.800      0.000    1.29e+04    1.44e+04
+x1           354.3071     69.103      5.127      0.000     217.174     491.440
+==============================================================================
+Omnibus:                        8.917   Durbin-Watson:                   1.687
+Prob(Omnibus):                  0.012   Jarque-Bera (JB):                8.892
+Skew:                           0.604   Prob(JB):                       0.0117
+Kurtosis:                       3.822   Cond. No.                         12.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
