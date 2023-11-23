@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 
 # Define the relative path to the input json file
-input_file_path = "analysis/data/session_4/localStorage_2023-11-10_04-29-45.json"
-output_folder = "analysis/data/session_4"
+input_file_path = "analysis/data/session_n/localStorage_2023-11-10_04-29-45.json"
+output_folder = "analysis/data/session_n"
 
 
 # Convert raw data from localStorage json data to csv
@@ -46,7 +46,7 @@ def localStorage_to_raw(input_file_path, output_folder):
 
 
 ### Get session data from raw data
-def raw_to_session(input_file_path, output_folder, outlier_threshold=(25000, 10)):
+def raw_to_session(input_file_path, output_folder, outlier_threshold=(99999, 99)):
     # Read and sort the data
     data = pd.read_csv(input_file_path, parse_dates=["Datetime"])
     data.sort_values("Datetime", inplace=True)
