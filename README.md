@@ -26,12 +26,12 @@ Once you've played the game for a while and want to further analyze your data, c
 2) Now, create a folder under the "data" directory with a name beginning with "session_" (a number following this string would be most natural of course). See example called "session_n".
 3) Place the downloaded .json file into this folder.
 4) Edit the file "generate_session_data.py" to include the correct .json filename and output folder path. The paths are currently configured to work in the "session_n" example directory.
-  - ![Screenshot of relevant lines](images/i_o.png)
-5) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files: 
-  - **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes
-  - **raw_YYYY-MM-DD_HH-MM-SS.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs
-  - **session_YYYY-MM-DD_HH-MM-SS.csv**: a .csv file in which rows describe full runs
-  - **summary_YYYY-MM-DD_HH-MM-SS.txt**: a .txt file giving summary statistics for the whole session
+  * ![Screenshot of relevant lines](images/i_o.png)
+5) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files:
+  * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes
+  * **raw_YYYY-MM-DD_HH-MM-SS.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs
+  * **session_YYYY-MM-DD_HH-MM-SS.csv**: a .csv file in which rows describe full runs
+  * **summary_YYYY-MM-DD_HH-MM-SS.txt**: a .txt file giving summary statistics for the whole session
 
 Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session_YYYY-MM-DD_HH-MM-SS.csv". Useful for when a friend hops in for a few runs.
 
