@@ -37,8 +37,10 @@ Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" yo
 
 ### Insights
 
-So far, one insight stands out:
-* Mistakes correlates highly with time. The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster at the expense of that mistakes counter.
+So far, two insights have been drawn from a two-factor linear model fit to one set of session data (n=100).
+* Mistakes correlates highly with time taken. The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster at the expense of that mistakes counter.
+* Layout difficultly plays a very small role in determining time taken, if any. Often while playing I notice strings of consecutive numbers which are adjacent or close to each other, enabling me to find and press them very quickly. Conversely, numbers that are further away from the one I just pressed feel like they take longer to find and press. I expected layout difficulty, assessed by the average distance between two consecutive keys within a run, to be a major predictor of time taken, but it turns out not to be the case. This is likely due to the relatively low layout difficulty standard deviation. Because there are so many numbers, the average distance between keys for a run turns out to be very similar from run to run (sd=
+* [Linear model with Mistakes and Layout Difficulty as factors](images/lm_plot.png)
 
 ### Direction
 
@@ -47,7 +49,6 @@ By its nature this is a very expandable project, and something of a perpetual wo
 * **Research questions**:
   - *Microscopic*
       + Is there a common relative mistake location given a target key?
-      + Per run, does average distance between consecutive keys predict time? Per key press?
       + Is accuracy different for each row of keys? Does target key location predict mistakes generally?
       + Does target number predict mistakes?
   - *Macroscopic*
