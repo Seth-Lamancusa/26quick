@@ -322,23 +322,23 @@ class Keyboard {
 						this.keys[i].appearance["fill"] = this.pressed[i] ? this.style["downFill"] : this.style["upFill"];
 					}
 
-					if (this.expectedNext == 27) {
-						for (let i = 0; i < 26; i++) {
-							this.keys[i].appearance["stroke"] = this.style["downStroke"];
-							this.keys[i].appearance["fill"] = this.style["downFill"];
-						}
+					this.keys[i].update(this.keySize, this.keySize);
+				}
 
-						// Set end record and update session plot
-						const dateTime = new Date();
-						this.endTime = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-						localStorage.setItem(this.endTime, "end");
-						updateSessionPlot();
-
-						this.state = 3;
-						break;
+				if (this.expectedNext == 27) {
+					for (let i = 0; i < 26; i++) {
+						this.keys[i].appearance["stroke"] = this.style["downStroke"];
+						this.keys[i].appearance["fill"] = this.style["downFill"];
 					}
 
-					this.keys[i].update(this.keySize, this.keySize);
+					// Set end record and update session plot
+					const dateTime = new Date();
+					this.endTime = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+					localStorage.setItem(this.endTime, "end");
+					updateSessionPlot();
+
+					this.state = 3;
+					break;
 				}
 
 				this.space.update(this.spaceWidth, this.keySize);

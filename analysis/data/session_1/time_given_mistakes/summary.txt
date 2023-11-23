@@ -1,0 +1,9 @@
+Model parameters: Intercept = 15202.475654839644, Coefficients = [359.34984065 -24.21106445]
+Coefficient of determination (R^2): 0.21756545943293903
+Model parameters and hypothesis test results:
+Intercept: 
+15202.48 (t=8.47, p=0.00), 
+Coefficients: 
+359.35 (t=5.18, p=0.00), 
+-24.21 (t=-0.87, p=0.39)
+Coefficient of determination (R^2): 0.21756545943293903
