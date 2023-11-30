@@ -39,8 +39,8 @@ Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" yo
 ### Insights
 
 Session 1: two insights have been drawn from a two-factor linear model fit to one set of session data (n=100).
-* Mistakes correlates highly with time taken. The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
-* Layout difficultly plays a very small role in determining time taken, if any. Often while playing I notice strings of consecutive numbers which are adjacent or close to each other, enabling me to find and press them very quickly. Conversely, numbers that are further away from the one I just pressed feel like they take longer to find and press. I expected layout difficulty, assessed by the average distance between two consecutive keys within a run, to be a major predictor of time taken, but it turns out not to be the case. This is likely due to the relatively low layout difficulty standard deviation. Because there are so many numbers, the average distance between keys for a run turns out to be very similar from run to run (sd=6.26).
+* Mistakes correlates highly with time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
+* Layout difficultly plays a very small role in determining time taken, if any (p≈.36). Often while playing I notice strings of consecutive numbers which are adjacent or close to each other, enabling me to find and press them very quickly. Conversely, numbers that are further away from the one I just pressed feel like they take longer to find and press. I expected layout difficulty, assessed by the average distance between two consecutive keys within a run, to be a major predictor of time taken, but it turns out not to be the case. This is likely due to the relatively low layout difficulty standard deviation. Because there are so many numbers, the average distance between keys for a run turns out to be very similar from run to run (sd=6.26mm).
 * ![Linear model with Mistakes and Layout Difficulty as factors](images/lm_plot.png)
 
 ### Direction
@@ -49,9 +49,7 @@ By its nature this is a very expandable project, and something of a perpetual wo
 * **Data collection**: This is the fun part. To take advantage of the aforementioned long skill curve and conducivity to large samples, I'll of course have to generate these samples by playing the game.
 * **Research questions**:
   - *Microscopic*
-      + Is there a common relative mistake location given a target key?
-      + Is accuracy different for each row of keys? Does target key location predict mistakes generally?
-      + Does target number predict mistakes?
+      + How are target key location, target key number, time to press, and mistake probability related? 4 questions.
   - *Macroscopic*
       + How long does it take to "warm up"? I'll take a rolling average over many sessions and identify peak performance window.
       + Is there a benefit to taking short breaks in the middle of a session?
