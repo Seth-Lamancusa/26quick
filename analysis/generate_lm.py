@@ -5,22 +5,25 @@ from matplotlib import pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 
-def generate_lm(input_path, output_folder):
+def generate_lm(input_path, output_folder, output_folder_name, predictor, response):
     # Read the CSV data into a pandas DataFrame
     df = pd.read_csv(input_path)
 
+    # Clear the plot
+    plt.clf()
+
     # Create a linear regression model and plot it
     model = LinearRegression()
-    xs = df["Total Mistakes"].values.reshape(-1, 1)
-    ys = df["Total Time Taken (ms)"].values.reshape(-1, 1)
+    xs = df[predictor].values.reshape(-1, 1)
+    ys = df[response].values.reshape(-1, 1)
     model.fit(xs, ys)
     predictions = model.predict(xs)
     plt.scatter(xs, ys, color="blue")  # Actual points
     plt.plot(xs, predictions, color="red")  # Regression line
-    output_folder = output_folder + "/time_given_mistakes"
+    output_folder = output_folder + f"/{output_folder_name}"
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-    plt.savefig(os.path.join(output_folder, "mistakes-time_plot.png"))
+    plt.savefig(os.path.join(output_folder, "plot.png"))
 
     # Calculate t statistics and p values for the model
     xs = sm.add_constant(xs)
@@ -32,4 +35,4 @@ def generate_lm(input_path, output_folder):
     with open(output_file_path, "w") as file:
         file.write(sm_model.summary().as_text())
 
-    print(f"Linear regression plot saved to {output_folder}")
+    print(f"Linear regression saved to {output_folder}")

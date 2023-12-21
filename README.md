@@ -25,9 +25,10 @@ Once you've played the game for a while and want to further analyze your data, c
 1) Click the "Download Local Storage" button and a file named "localStorage_YYYY-MM-DD_HH-MM-SS.json" will be downloaded.
 2) Now, create a folder under the "data" directory with a name beginning with "session_" (a number following this string would be most natural of course). See example called "session_n".
 3) Place the downloaded .json file into this folder.
-4) Edit the file "generate_session_data.py" to include the correct .json filename and output folder path. The paths are currently configured to work in the "session_n" example directory.
+4) Edit the file "generate_session_data.py" to include the correct .json filename and output folder path. The paths are currently configured to work in the "session_n" example directory. You can run the script as-is to generate analyses for the example session.
   * ![Screenshot of relevant lines](images/i_o.png)
-5) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files and a folder called "lm":
+5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
+6) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files and a folder called "lm":
   * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes
   * **raw_YYYY-MM-DD_HH-MM-SS.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs
   * **session_YYYY-MM-DD_HH-MM-SS.csv**: a .csv file in which rows describe full runs
@@ -49,7 +50,14 @@ By its nature this is a very expandable project, and something of a perpetual wo
 * **Data collection**: This is the fun part. To take advantage of the aforementioned long skill curve and conducivity to large samples, I'll of course have to generate these samples by playing the game.
 * **Research questions**:
   - *Microscopic*
-      + How are target key location, target key number, time to press, and mistake probability related? 4 questions.
+      + How are these factors related?
+        - target key absolute location and time to press
+        - target key number and time to press
+        - target key absolute location and mistake probability
+        - target key number and mistake probability
+        - target key relative location (to last key) and time to press
+        - target key relative location (to last key) and mistake probability
+      + Does hiding mistakes and time during practice improve or hurt performance?
   - *Macroscopic*
       + How long does it take to "warm up"? I'll take a rolling average over many sessions and identify peak performance window.
       + Is there a benefit to taking short breaks in the middle of a session?
