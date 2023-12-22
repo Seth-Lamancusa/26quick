@@ -7,8 +7,8 @@ from generate_rolling import generate_rolling
 
 
 # Define the relative path to the input json file
-input_file_path = "analysis/data/session_1/localStorage_2023-12-21_00-02-59.json"
-output_folder = "analysis/data/session_1"
+input_file_path = "analysis/data/session_3/localStorage_2023-12-22_20-25-18.json"
+output_folder = "analysis/data/session_3"
 
 raw_path = localStorage_to_raw(input_file_path, output_folder)
 session_path = raw_to_session(raw_path, output_folder)

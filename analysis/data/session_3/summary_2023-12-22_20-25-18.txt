@@ -1,0 +1,18 @@
+Summary Statistics for session_2023-12-22_20-25-18.csv
+
+Total Runs: 92
+
+Mean Time Taken (ms): 14666.304347826086
+Median Time Taken (ms): 14622.5
+Best Time Taken (ms): 10749.0
+Worst Time Taken (ms): 20414.0
+25th Quantile Time Taken (ms): 13456.75
+75th Quantile Time Taken (ms): 15539.75
+
+Mean Mistakes: 3.380434782608696
+Median Mistakes: 3.0
+Least Mistakes: 0.0
+Most Mistakes: 11.0
+25th Quantile Mistakes: 2.0
+75th Quantile Mistakes: 5.0
+
