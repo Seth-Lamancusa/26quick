@@ -1,5 +1,5 @@
 # Ignore everything in the data folder
-data/*
+analysis/data/*
 
 # Except the session_n subfolder
-!data/session_n/
+!analysis/data/session_n/

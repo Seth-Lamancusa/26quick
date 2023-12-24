@@ -6,9 +6,11 @@ import pandas as pd
 import os
 
 
-def raw_to_session(input_file_path, output_folder, outlier_threshold=(99999, 99)):
+def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
     # Read and sort the data
-    data = pd.read_csv(input_file_path, parse_dates=["Datetime"])
+    data = pd.read_csv(
+        f"analysis/data/session_{session_ID}/raw.csv", parse_dates=["Datetime"]
+    )
     data.sort_values("Datetime", inplace=True)
 
     # Identify runs (start and end indices)
@@ -72,8 +74,7 @@ def raw_to_session(input_file_path, output_folder, outlier_threshold=(99999, 99)
     ]
 
     # Save to CSV
-    output_filename = "session" + input_file_path[27 : -len(".csv")] + ".csv"
-    output_csv_path = os.path.join(output_folder, output_filename)
+    output_csv_path = os.path.join(f"analysis/data/session_{session_ID}", "session.csv")
     output_df.to_csv(output_csv_path, index=False)
 
     print(f"Session data saved to {output_csv_path}")

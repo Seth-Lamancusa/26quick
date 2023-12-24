@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import os
 
 
-def generate_rolling(session_path, output_folder, window_size):
+def generate_rolling(session_ID, window_size):
     # Load session data from CSV file
-    session_data = pd.read_csv(session_path)
+    session_data = pd.read_csv(f"analysis/data/session_{session_ID}/session.csv")
 
     # Calculate rolling averages
     session_data["Total Time Taken (ms) Rolling"] = (
@@ -46,7 +46,7 @@ def generate_rolling(session_path, output_folder, window_size):
     ax2.legend(loc="upper right")
 
     # Create output folder and subfolder if they don't exist
-    rolling_folder = os.path.join(output_folder, "rolling")
+    rolling_folder = os.path.join(f"analysis/data/session_{session_ID}", "rolling")
     if not os.path.exists(rolling_folder):
         os.makedirs(rolling_folder)
 

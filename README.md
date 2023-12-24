@@ -22,20 +22,22 @@ To play the game, either download the files from this repo and unzip directly, o
 The panels can be flipped over by clicking the info icons to reveal details. The left panel is used for managing and downloading your browser data and the right for preliminary analysis.
 
 Once you've played the game for a while and want to further analyze your data, complete the following steps:
-1) Click the "Download Local Storage" button and a file named "localStorage_YYYY-MM-DD_HH-MM-SS.json" will be downloaded.
-2) Now, create a folder under the "data" directory with a name beginning with "session_" (a number following this string would be most natural of course). See example called "session_n".
+1) Click the "Download Local Storage" button and a file named "localStorage.json" will be downloaded.
+2) Now, create a folder under the "data" directory with a name beginning with "session_", followed by a unique session ID (a number would be most natural of course). See example called "session_n".
 3) Place the downloaded .json file into this folder.
-4) Edit the file "generate_session_data.py" to include the correct .json filename and output folder path. The paths are currently configured to work in the "session_n" example directory. You can run the script as-is to generate analyses for the example session.
-  * ![Screenshot of relevant lines](images/i_o.png)
+4) Edit the file "generate_session_data.py" to include the correct session ID. You can run the script as-is to generate analyses for the example 'session_n' directory.
 5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
-6) Finally, run the "generate_session_data.py" script and your session directory should be populated with 4 additional files and a folder called "lm":
-  * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes
-  * **raw_YYYY-MM-DD_HH-MM-SS.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs
-  * **session_YYYY-MM-DD_HH-MM-SS.csv**: a .csv file in which rows describe full runs
-  * **summary_YYYY-MM-DD_HH-MM-SS.txt**: a .txt file giving summary statistics for the whole session
-  * **lm**: a folder containing a summary and scatter plot of a one-factor (Total Mistakes) linear model fit to your session data
+6) Finally, run the "generate_session_data.py" script and your session directory should be populated with a few additional files and folders:
+  * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes.
+  * **raw.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs.
+  * **session.csv**: a .csv file in which rows describe full runs.
+  * **summary.txt**: a .txt file giving summary statistics for the whole session.
+  * **rolling**: a folder containing several charts with plotted rolling averages. The number following "rolling_" in the .png filename is the window size.
+  * **y_given_x**: a folder(s) containg 1) a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response, along with 2) a plot of the regression line overlayed on top of the data.
 
-Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session_YYYY-MM-DD_HH-MM-SS.csv". Useful for when a friend hops in for a few runs.
+Once you have a few sessions, you can run "generate_agg_data.py" to analyze your play over longer time horizons. Work in progress.
+
+Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session.csv". Useful for when a friend hops in for a few runs.
 
 ### Insights
 

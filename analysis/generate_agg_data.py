@@ -1,0 +1,78 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def generate_agg_data(sessions):
+    dfs = []
+
+    # Reading and appending data from each session
+    for session in sessions:
+        df = pd.read_csv(
+            f"analysis/data/session_{session}/session.csv",
+            parse_dates=["Run Start Time"],
+        )
+        dfs.append(df)
+
+    # Concatenating all dataframes
+    df = pd.concat(dfs)
+
+    # Calculating summary statistics
+    total_runs = len(df)
+    mean_time = df["Total Time Taken (ms)"].mean()
+    median_time = df["Total Time Taken (ms)"].median()
+    best_time = df["Total Time Taken (ms)"].min()
+    worst_time = df["Total Time Taken (ms)"].max()
+    quantile_25_time = df["Total Time Taken (ms)"].quantile(0.25)
+    quantile_75_time = df["Total Time Taken (ms)"].quantile(0.75)
+
+    mean_mistakes = df["Total Mistakes"].mean()
+    median_mistakes = df["Total Mistakes"].median()
+    least_mistakes = df["Total Mistakes"].min()
+    most_mistakes = df["Total Mistakes"].max()
+    quantile_25_mistakes = df["Total Mistakes"].quantile(0.25)
+    quantile_75_mistakes = df["Total Mistakes"].quantile(0.75)
+
+    # Writing summary statistics to a file
+    with open("analysis/data/aggregate/summary.txt", "w") as file:
+        file.write("Aggregate Summary Statistics\n\n")
+        file.write(f"Total Runs: {total_runs}\n\n")
+        file.write("Mean Time Taken (ms): {:.2f}\n".format(mean_time))
+        file.write("Median Time Taken (ms): {:.2f}\n".format(median_time))
+        file.write("Best Time Taken (ms): {:.2f}\n".format(best_time))
+        file.write("Worst Time Taken (ms): {:.2f}\n".format(worst_time))
+        file.write("25th Quantile Time Taken (ms): {:.2f}\n".format(quantile_25_time))
+        file.write("75th Quantile Time Taken (ms): {:.2f}\n\n".format(quantile_75_time))
+        file.write("Mean Mistakes: {:.2f}\n".format(mean_mistakes))
+        file.write("Median Mistakes: {:.2f}\n".format(median_mistakes))
+        file.write("Least Mistakes: {:.2f}\n".format(least_mistakes))
+        file.write("Most Mistakes: {:.2f}\n".format(most_mistakes))
+        file.write("25th Quantile Mistakes: {:.2f}\n".format(quantile_25_mistakes))
+        file.write("75th Quantile Mistakes: {:.2f}\n".format(quantile_75_mistakes))
+
+    # Creating the plot
+    fig, ax1 = plt.subplots()
+
+    # Calculating median values for each session
+    medians_time_taken = [df["Total Time Taken (ms)"].median() for df in dfs]
+    medians_mistakes = [df["Total Mistakes"].median() for df in dfs]
+
+    # Plotting Median Total Time Taken
+    ax1.set_xlabel("Session")
+    ax1.set_ylabel("Median Total Time Taken (ms)", color="tab:blue")
+    ax1.plot(sessions, medians_time_taken, color="tab:blue")
+    ax1.tick_params(axis="y", labelcolor="tab:blue")
+
+    # Creating a second y-axis for Median Total Mistakes
+    ax2 = ax1.twinx()
+    ax2.set_ylabel("Median Total Mistakes", color="tab:red")
+    ax2.plot(sessions, medians_mistakes, color="tab:red")
+    ax2.tick_params(axis="y", labelcolor="tab:red")
+
+    # Finalizing and saving the plot
+    fig.tight_layout()
+    plt.savefig("analysis/data/aggregate/agg_plot.png")
+
+    print("Aggregate data generated successfully.")
+
+
+generate_agg_data([str(i) for i in range(1, 5)])

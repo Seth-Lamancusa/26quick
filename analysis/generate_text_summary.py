@@ -1,12 +1,9 @@
-import os
 import pandas as pd
 
 
-### Generate .txt summary
-# Input path is session data
-def generate_text_summary(input_file_path, output_folder):
+def generate_text_summary(session_ID):
     # Read the CSV data into a pandas DataFrame
-    df = pd.read_csv(input_file_path)
+    df = pd.read_csv(f"analysis/data/session_{session_ID}/session.csv")
 
     # Calculate the required statistics for 'Total Time Taken (ms)'
     mean_time = df["Total Time Taken (ms)"].mean()
@@ -25,14 +22,11 @@ def generate_text_summary(input_file_path, output_folder):
     quantile_75_mistakes = df["Total Mistakes"].quantile(0.75)
 
     # Format output filename based on input filename
-    input_file_name = os.path.basename(input_file_path)
-    date_time_str = input_file_name.replace("session_", "").replace(".csv", "")
-    output_file_name = f"summary_{date_time_str}.txt"
-    output_file_path = f"{output_folder}/{output_file_name}"
+    output_file_path = f"analysis/data/session_{session_ID}/summary.txt"
 
     # Write the summary statistics to a text file
     with open(output_file_path, "w") as file:
-        file.write(f"Summary Statistics for {input_file_name}\n")
+        file.write(f"Summary Statistics for session_{session_ID}\n")
         file.write("\n")
         file.write(f"Total Runs: {len(df)}\n")
         file.write("\n")

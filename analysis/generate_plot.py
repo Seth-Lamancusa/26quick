@@ -3,9 +3,12 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 
-def generate_plot(input_file_path, output_folder):
+def generate_plot(session_ID):
     # Read the CSV data into a pandas DataFrame
-    df = pd.read_csv(input_file_path, parse_dates=["Run Start Time"])
+    df = pd.read_csv(
+        f"analysis/data/session_{session_ID}/session.csv",
+        parse_dates=["Run Start Time"],
+    )
 
     # Create a new figure and a set of subplots
     fig, ax1 = plt.subplots()
@@ -29,7 +32,9 @@ def generate_plot(input_file_path, output_folder):
     fig.tight_layout()
 
     # Save the plot as an image
-    plt.savefig(os.path.join(output_folder, "performance_plot.png"))
+    plt.savefig(
+        os.path.join(f"analysis/data/session_{session_ID}", "performance_plot.png")
+    )
 
     # Show the plot (optional, you can remove this if you just want to save the image)
     plt.show()
