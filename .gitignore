@@ -3,3 +3,4 @@ analysis/data/*
 
 # Except the session_n subfolder
 !analysis/data/session_n/
+!analysis/data/aggregate

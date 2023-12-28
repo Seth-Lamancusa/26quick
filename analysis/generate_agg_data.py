@@ -1,5 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+from generate_lm import generate_lm
+from generate_plots import generate_plots
 
 
 def generate_agg_data(sessions):
@@ -72,7 +75,38 @@ def generate_agg_data(sessions):
     fig.tight_layout()
     plt.savefig("analysis/data/aggregate/agg_plot.png")
 
+    # Clearing the plot
+    plt.clf()
+
+    # Scatter
+    colors = plt.cm.rainbow(np.linspace(0, 1, len(dfs)))
+    for df, color in zip(dfs, colors):
+        plt.scatter(df["Total Mistakes"], df["Total Time Taken (ms)"], color=color, s=3)
+
+    plt.xlabel("Total Mistakes")
+    plt.ylabel("Total Time Taken (ms)")
+    plt.title("Time Taken vs Mistakes Made by Session")
+    plt.legend(["Session " + str(i) for i in range(1, len(dfs) + 1)])
+
+    fig.tight_layout()
+    plt.savefig("analysis/data/aggregate/scatter.png")
+
     print("Aggregate data generated successfully.")
 
 
-generate_agg_data([str(i) for i in range(1, 5)])
+generate_agg_data([str(i) for i in range(1, 8)])
+generate_lm(
+    predictor="Total Mistakes",
+    response="Total Time Taken (ms)",
+    output_folder_name="time_given_mistakes",
+    agg=True,
+    sessions=[str(i) for i in range(1, 8)],
+)
+generate_lm(
+    predictor="Layout Difficulty",
+    response="Total Time Taken (ms)",
+    output_folder_name="time_given_diff",
+    agg=True,
+    sessions=[str(i) for i in range(1, 8)],
+)
+generate_plots(agg=True, sessions=[str(i) for i in range(1, 8)])

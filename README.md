@@ -33,7 +33,9 @@ Once you've played the game for a while and want to further analyze your data, c
   * **session.csv**: a .csv file in which rows describe full runs.
   * **summary.txt**: a .txt file giving summary statistics for the whole session.
   * **rolling**: a folder containing several charts with plotted rolling averages. The number following "rolling_" in the .png filename is the window size.
-  * **y_given_x**: a folder(s) containg 1) a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response, along with 2) a plot of the regression line overlayed on top of the data.
+  * **y_given_x**: a folder(s) containg 
+    - a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response.
+    - a plot of the regression line overlayed on top of the data.
 
 Once you have a few sessions, you can run "generate_agg_data.py" to analyze your play over longer time horizons. Work in progress.
 
@@ -41,10 +43,17 @@ Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" yo
 
 ### Insights
 
-Session 1: two insights have been drawn from a two-factor linear model fit to one set of session data (n=100).
-* Mistakes correlates highly with time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
-* Layout difficultly plays a very small role in determining time taken, if any (p≈.36). Often while playing I notice strings of consecutive numbers which are adjacent or close to each other, enabling me to find and press them very quickly. Conversely, numbers that are further away from the one I just pressed feel like they take longer to find and press. I expected layout difficulty, assessed by the average distance between two consecutive keys within a run, to be a major predictor of time taken, but it turns out not to be the case. This is likely due to the relatively low layout difficulty standard deviation. Because there are so many numbers, the average distance between keys for a run turns out to be very similar from run to run (sd=6.26mm).
-* ![Linear model with Mistakes and Layout Difficulty as factors](images/lm_plot.png)
+Improvement over time visualizations:
+* ![Median time and mistakes by session](analysis/data/aggregate/agg_plot.png)
+
+Correlations drawn from all runs over all sessions using one-factor linear regression:
+* Mistakes predicts time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
+* Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the high variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
+* ![Time given mistakes plot](analysis/data/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/data/aggregate/time_given_diff/plot.png)
+
+Data appear to be roughly normally distributed, but I'm not sure near the extremes:
+* ![Q-Q plot](analysis/data/aggregate/qq_plot.png)
+
 
 ### Direction
 
@@ -54,8 +63,8 @@ By its nature this is a very expandable project, and something of a perpetual wo
   - *Microscopic*
       + How are these factors related?
         - target key absolute location and time to press
-        - target key number and time to press
         - target key absolute location and mistake probability
+        - target key number and time to press
         - target key number and mistake probability
         - target key relative location (to last key) and time to press
         - target key relative location (to last key) and mistake probability

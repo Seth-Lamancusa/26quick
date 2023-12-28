@@ -4,9 +4,29 @@ import statsmodels.api as sm
 from matplotlib import pyplot as plt
 
 
-def generate_lm(session_ID, output_folder_name, predictor, response):
-    # Read the CSV data into a pandas DataFrame
-    df = pd.read_csv(f"analysis/data/session_{session_ID}/session.csv")
+def generate_lm(
+    predictor,
+    response,
+    output_folder_name,
+    agg=False,
+    sessions=None,
+    session_ID=None,
+):
+    if agg:
+        dfs = []
+
+        # Reading and appending data from each session
+        for session in sessions:
+            df = pd.read_csv(
+                f"analysis/data/session_{session}/session.csv",
+                parse_dates=["Run Start Time"],
+            )
+            dfs.append(df)
+
+        # Concatenating all dataframes
+        df = pd.concat(dfs)
+    else:
+        df = pd.read_csv(f"analysis/data/session_{session_ID}/session.csv")
 
     # Clear the plot
     plt.clf()
@@ -25,12 +45,34 @@ def generate_lm(session_ID, output_folder_name, predictor, response):
     # Plot the actual data and the regression line
     plt.scatter(df[predictor], y, color="blue")  # Actual points
     plt.plot(df[predictor], predictions, color="red")  # Regression line
-    output_folder = os.path.join(
-        f"analysis/data/session_{session_ID}", output_folder_name
+
+    if agg:
+        output_folder = os.path.join("analysis/data/aggregate", output_folder_name)
+    else:
+        output_folder = os.path.join(
+            f"analysis/data/session_{session_ID}", output_folder_name
+        )
+
+    # Annotate plot with p value and parameter values from model summary
+    intercept = model.params[0]
+    p_value_int = model.pvalues[0]
+    slope = model.params[1]
+    p_value_slope = model.pvalues[1]
+    plt.annotate(
+        f"intercept = {intercept:.3f}, p={round(p_value_int, 3)}",
+        xy=(0.05, 0.9),
+        xycoords="axes fraction",
     )
+    plt.annotate(
+        f"slope = {slope:.3f}, p={round(p_value_slope, 3)}",
+        xy=(0.05, 0.85),
+        xycoords="axes fraction",
+    )
+
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     plt.savefig(os.path.join(output_folder, "plot.png"))
+    plt.close()
 
     # Create a summary .txt file with model parameters
     output_file_name = "summary.txt"

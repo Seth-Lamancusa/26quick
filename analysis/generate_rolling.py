@@ -53,5 +53,6 @@ def generate_rolling(session_ID, window_size):
     # Save the plot
     plot_file_path = os.path.join(rolling_folder, f"rolling_{window_size}.png")
     plt.savefig(plot_file_path)
+    plt.close()
 
     return plot_file_path

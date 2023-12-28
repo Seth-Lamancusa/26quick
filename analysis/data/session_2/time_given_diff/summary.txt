@@ -1,19 +1,19 @@
-                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                      y   R-squared:                       0.018
-Model:                            OLS   Adj. R-squared:                  0.007
-Method:                 Least Squares   F-statistic:                     1.633
-Date:                Thu, 21 Dec 2023   Prob (F-statistic):              0.205
-Time:                        20:33:05   Log-Likelihood:                -823.94
-No. Observations:                  93   AIC:                             1652.
-Df Residuals:                      91   BIC:                             1657.
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P>|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-const       1.233e+04   1630.458      7.561      0.000    9089.973    1.56e+04
-x1            32.7120     25.600      1.278      0.205     -18.140      83.564
+                              OLS Regression Results                             
+=================================================================================
+Dep. Variable:     Total Time Taken (ms)   R-squared:                       0.018
+Model:                               OLS   Adj. R-squared:                  0.007
+Method:                    Least Squares   F-statistic:                     1.633
+Date:                   Wed, 27 Dec 2023   Prob (F-statistic):              0.205
+Time:                           19:34:11   Log-Likelihood:                -823.94
+No. Observations:                     93   AIC:                             1652.
+Df Residuals:                         91   BIC:                             1657.
+Df Model:                              1                                         
+Covariance Type:               nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const              1.233e+04   1630.458      7.561      0.000    9089.973    1.56e+04
+Layout Difficulty    32.7120     25.600      1.278      0.205     -18.140      83.564
 ==============================================================================
 Omnibus:                        9.708   Durbin-Watson:                   2.105
 Prob(Omnibus):                  0.008   Jarque-Bera (JB):               11.276
