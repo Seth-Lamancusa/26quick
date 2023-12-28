@@ -29,6 +29,8 @@ Once you've played the game for a while and want to further analyze your data, c
 5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
 6) Finally, run the "generate_session_data.py" script and your session directory should be populated with a few additional files and folders:
   * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes.
+  * **qq_plot.png**: a Q-Q plot testing against theoretical normal distribution.
+  * **histograms.png**: two histograms; one for time and one for mistakes.
   * **raw.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs.
   * **session.csv**: a .csv file in which rows describe full runs.
   * **summary.txt**: a .txt file giving summary statistics for the whole session.
