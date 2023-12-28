@@ -52,7 +52,7 @@ Improvement over time visualizations:
 
 Correlations drawn from all runs over all sessions using one-factor linear regression:
 * Mistakes predicts time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
-* Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the high variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
+* Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the low variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
 * ![Time given mistakes plot](analysis/data/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/data/aggregate/time_given_diff/plot.png)
 
 Data appear to be roughly normally distributed, but I'm not sure near the extremes:
