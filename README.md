@@ -23,23 +23,25 @@ The panels can be flipped over by clicking the info icons to reveal details. The
 
 Once you've played the game for a while and want to further analyze your data, complete the following steps:
 1) Click the "Download Local Storage" button and a file named "localStorage.json" will be downloaded.
-2) Now, create a folder under the "data" directory with a name beginning with "session_", followed by a unique session ID (a number would be most natural of course). See example called "session_n".
-3) Place the downloaded .json file into this folder.
+2) Now, create a folder under the "analysis" directory with a name beginning with "session_", followed by a unique session ID (a number would be most natural of course). Create a subdirectory of this folder called "data".
+3) Place the downloaded .json file into this folder. See example "session_n" for structure.
 4) Edit the file "generate_session_data.py" to include the correct session ID. You can run the script as-is to generate analyses for the example 'session_n' directory.
 5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
 6) Finally, run the "generate_session_data.py" script and your session directory should be populated with a few additional files and folders:
-  * **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes.
-  * **qq_plot.png**: a Q-Q plot testing against theoretical normal distribution.
-  * **histograms.png**: two histograms; one for time and one for mistakes.
-  * **raw.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs.
-  * **session.csv**: a .csv file in which rows describe full runs.
+  * **vis**:
+    - **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes.
+    - **qq_plot.png**: a Q-Q plot testing against theoretical normal distribution.
+    - **histograms.png**: two histograms; one for time and one for mistakes.
+    - **y_given_x**: a folder(s) containg 
+      + a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response.
+      + a plot of the regression line overlayed on top of the data.
+  * **data**:
+    - **raw.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs.
+    - **session.csv**: a .csv file in which rows describe full runs.
   * **summary.txt**: a .txt file giving summary statistics for the whole session.
   * **rolling**: a folder containing several charts with plotted rolling averages. The number following "rolling_" in the .png filename is the window size.
-  * **y_given_x**: a folder(s) containg 
-    - a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response.
-    - a plot of the regression line overlayed on top of the data.
 
-Once you have a few sessions, you can run "generate_agg_data.py" to analyze your play over longer time horizons. Work in progress.
+Once you have a few sessions, you can run "generate_agg_data.py" to analyze your play over longer time horizons. Work in progress. "aggregate" folder currentlly populated with my own data.
 
 Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session.csv". Useful for when a friend hops in for a few runs.
 

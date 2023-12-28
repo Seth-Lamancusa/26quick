@@ -18,7 +18,7 @@ def generate_lm(
         # Reading and appending data from each session
         for session in sessions:
             df = pd.read_csv(
-                f"analysis/data/session_{session}/session.csv",
+                f"analysis/session_{session}/data/session.csv",
                 parse_dates=["Run Start Time"],
             )
             dfs.append(df)
@@ -26,7 +26,7 @@ def generate_lm(
         # Concatenating all dataframes
         df = pd.concat(dfs)
     else:
-        df = pd.read_csv(f"analysis/data/session_{session_ID}/session.csv")
+        df = pd.read_csv(f"analysis/session_{session_ID}/data/session.csv")
 
     # Clear the plot
     plt.clf()
@@ -47,10 +47,10 @@ def generate_lm(
     plt.plot(df[predictor], predictions, color="red")  # Regression line
 
     if agg:
-        output_folder = os.path.join("analysis/data/aggregate", output_folder_name)
+        output_folder = os.path.join("analysis/aggregate", output_folder_name)
     else:
         output_folder = os.path.join(
-            f"analysis/data/session_{session_ID}", output_folder_name
+            f"analysis/session_{session_ID}/vis", output_folder_name
         )
 
     # Annotate plot with p value and parameter values from model summary

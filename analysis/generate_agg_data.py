@@ -11,7 +11,7 @@ def generate_agg_data(sessions):
     # Reading and appending data from each session
     for session in sessions:
         df = pd.read_csv(
-            f"analysis/data/session_{session}/session.csv",
+            f"analysis/session_{session}/data/session.csv",
             parse_dates=["Run Start Time"],
         )
         dfs.append(df)
@@ -36,7 +36,7 @@ def generate_agg_data(sessions):
     quantile_75_mistakes = df["Total Mistakes"].quantile(0.75)
 
     # Writing summary statistics to a file
-    with open("analysis/data/aggregate/summary.txt", "w") as file:
+    with open("analysis/aggregate/summary.txt", "w") as file:
         file.write("Aggregate Summary Statistics\n\n")
         file.write(f"Total Runs: {total_runs}\n\n")
         file.write("Mean Time Taken (ms): {:.2f}\n".format(mean_time))
@@ -73,7 +73,7 @@ def generate_agg_data(sessions):
 
     # Finalizing and saving the plot
     fig.tight_layout()
-    plt.savefig("analysis/data/aggregate/agg_plot.png")
+    plt.savefig("analysis/aggregate/vis/agg_plot.png")
 
     # Clearing the plot
     plt.clf()
@@ -89,24 +89,24 @@ def generate_agg_data(sessions):
     plt.legend(["Session " + str(i) for i in range(1, len(dfs) + 1)])
 
     fig.tight_layout()
-    plt.savefig("analysis/data/aggregate/scatter.png")
+    plt.savefig("analysis/aggregate/vis/scatter.png")
 
     print("Aggregate data generated successfully.")
 
 
-generate_agg_data([str(i) for i in range(1, 8)])
+generate_agg_data([str(i) for i in range(1, 9)])
 generate_lm(
     predictor="Total Mistakes",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_mistakes",
     agg=True,
-    sessions=[str(i) for i in range(1, 8)],
+    sessions=[str(i) for i in range(1, 9)],
 )
 generate_lm(
     predictor="Layout Difficulty",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_diff",
     agg=True,
-    sessions=[str(i) for i in range(1, 8)],
+    sessions=[str(i) for i in range(1, 9)],
 )
-generate_plots(agg=True, sessions=[str(i) for i in range(1, 8)])
+generate_plots(agg=True, sessions=[str(i) for i in range(1, 9)])

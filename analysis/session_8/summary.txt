@@ -1,0 +1,14 @@
+Summary Statistics for session_8
+
+Total Runs: 99
+
+Mean Time Taken (ms): 13206.343434343435
+Median Time Taken (ms): 12981.0
+Best Time Taken (ms): 10032.0
+Worst Time Taken (ms): 18131.0
+
+Mean Mistakes: 3.8383838383838382
+Median Mistakes: 4.0
+Least Mistakes: 0.0
+Most Mistakes: 14.0
+

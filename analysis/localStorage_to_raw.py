@@ -7,7 +7,7 @@ from datetime import datetime
 # Convert raw data from localStorage json data to csv
 def localStorage_to_raw(session_ID):
     # Load the JSON data from the file
-    with open(f"analysis/data/session_{session_ID}/localStorage.json", "r") as f:
+    with open(f"analysis/session_{session_ID}/data/localStorage.json", "r") as f:
         data = json.load(f)
 
     # Filter out non-datetime keys
@@ -26,7 +26,7 @@ def localStorage_to_raw(session_ID):
         processed_data, key=lambda x: datetime.strptime(x[0], "%Y-%m-%d %H:%M:%S.%f")
     )
 
-    csv_file_path = os.path.join(f"analysis/data/session_{session_ID}", "raw.csv")
+    csv_file_path = os.path.join(f"analysis/session_{session_ID}/data", "raw.csv")
     with open(csv_file_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Datetime", "Key", "Number", "Action", "Time", "Mistakes"])

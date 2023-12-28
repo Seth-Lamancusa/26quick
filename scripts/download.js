@@ -9,12 +9,8 @@ document.getElementById('downloadLocalStorage').addEventListener('click', functi
     const url = window.URL.createObjectURL(blob);
     const downloadLink = document.createElement('a');
 
-    // Get current datetime and format it as "YYYY-MM-DD_HH-MM-SS"
-    const now = new Date();
-    const formattedDatetime = now.toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
-
     downloadLink.href = url;
-    downloadLink.download = `localStorage_${formattedDatetime}.json`;
+    downloadLink.download = `localStorage.json`;
 
     // Append the link to the document and trigger the download
     document.body.appendChild(downloadLink);

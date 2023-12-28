@@ -1,0 +1,18 @@
+Summary Statistics for session_5
+
+Total Runs: 88
+
+Mean Time Taken (ms): 15230.011363636364
+Median Time Taken (ms): 15064.5
+Best Time Taken (ms): 11632.0
+Worst Time Taken (ms): 21279.0
+25th Quantile Time Taken (ms): 14015.25
+75th Quantile Time Taken (ms): 16048.0
+
+Mean Mistakes: 3.5795454545454546
+Median Mistakes: 3.5
+Least Mistakes: 0.0
+Most Mistakes: 12.0
+25th Quantile Mistakes: 2.0
+75th Quantile Mistakes: 5.0
+

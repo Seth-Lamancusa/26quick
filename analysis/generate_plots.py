@@ -12,7 +12,7 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         # Reading and appending data from each session
         for session in sessions:
             df = pd.read_csv(
-                f"analysis/data/session_{session}/session.csv",
+                f"analysis/session_{session}/data/session.csv",
                 parse_dates=["Run Start Time"],
             )
             dfs.append(df)
@@ -22,7 +22,7 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         df.sort_values(by=["Run Start Time"], inplace=True)
     else:
         df = pd.read_csv(
-            f"analysis/data/session_{session_ID}/session.csv",
+            f"analysis/session_{session_ID}/data/session.csv",
             parse_dates=["Run Start Time"],
         )
 
@@ -49,10 +49,10 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
 
     # Save the plot as an image
     if agg:
-        plt.savefig("analysis/data/aggregate/performance_plot.png")
+        plt.savefig("analysis/aggregate/vis/performance_plot.png")
     else:
         plt.savefig(
-            os.path.join(f"analysis/data/session_{session_ID}", "performance_plot.png")
+            os.path.join(f"analysis/session_{session_ID}/vis", "performance_plot.png")
         )
     plt.clf()
 
@@ -76,9 +76,9 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
     # Adjusting layout and saving the figure
     plt.tight_layout()
     if agg:
-        plt.savefig("analysis/data/aggregate/qq_plot.png")
+        plt.savefig("analysis/aggregate/vis/qq_plot.png")
     else:
-        plt.savefig(f"analysis/data/session_{session_ID}/qq_plot.png")
+        plt.savefig(f"analysis/session_{session_ID}/vis/qq_plot.png")
 
     # Create histograms
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
@@ -105,8 +105,8 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
     # Adjusting layout and saving the figure
     plt.tight_layout()
     if agg:
-        plt.savefig("analysis/data/aggregate/histograms.png")
+        plt.savefig("analysis/aggregate/vis/histograms.png")
     else:
-        plt.savefig(f"analysis/data/session_{session_ID}/histograms.png")
+        plt.savefig(f"analysis/session_{session_ID}/vis/histograms.png")
 
     print(f"Generated plots for session {session_ID}")

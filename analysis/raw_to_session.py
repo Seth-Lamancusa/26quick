@@ -9,7 +9,7 @@ import os
 def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
     # Read and sort the data
     data = pd.read_csv(
-        f"analysis/data/session_{session_ID}/raw.csv", parse_dates=["Datetime"]
+        f"analysis/session_{session_ID}/data/raw.csv", parse_dates=["Datetime"]
     )
     data.sort_values("Datetime", inplace=True)
 
@@ -74,7 +74,7 @@ def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
     ]
 
     # Save to CSV
-    output_csv_path = os.path.join(f"analysis/data/session_{session_ID}", "session.csv")
+    output_csv_path = os.path.join(f"analysis/session_{session_ID}/data", "session.csv")
     output_df.to_csv(output_csv_path, index=False)
 
     print(f"Session data saved to {output_csv_path}")
