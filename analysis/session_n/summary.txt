@@ -1,7 +1,7 @@
 Summary Statistics for session_n
 
 Total Runs: 87
-
+Total 0-mistake Runs: 2
 Mean Time Taken (ms): 15752.816091954022
 Median Time Taken (ms): 15565.0
 Best Time Taken (ms): 12132.0

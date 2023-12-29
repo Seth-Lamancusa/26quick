@@ -17,6 +17,9 @@ def generate_text_summary(session_ID):
     best_mistakes = df["Total Mistakes"].min()
     worst_mistakes = df["Total Mistakes"].max()
 
+    # Calculate number of 0-mistake runs
+    nom = df["Total Mistakes"].value_counts().get(0, 0)
+
     # Format output filename based on input filename
     output_file_path = f"analysis/session_{session_ID}/summary.txt"
 
@@ -25,6 +28,7 @@ def generate_text_summary(session_ID):
         file.write(f"Summary Statistics for session_{session_ID}\n")
         file.write("\n")
         file.write(f"Total Runs: {len(df)}\n")
+        file.write(f"Total 0-mistake Runs: {nom}\n")
         file.write("\n")
         file.write(f"Mean Time Taken (ms): {mean_time}\n")
         file.write(f"Median Time Taken (ms): {median_time}\n")

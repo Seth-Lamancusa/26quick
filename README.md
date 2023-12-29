@@ -48,15 +48,16 @@ Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" yo
 ### Insights
 
 Improvement over time visualizations:
-* ![Median time and mistakes by session](analysis/data/aggregate/agg_plot.png)
+* ![Median time and mistakes by session](analysis/aggregate/vis/agg_plot.png)
+* ![Number 0-mistake runs by session](analysis/aggregate/vis/nom.png)
 
 Correlations drawn from all runs over all sessions using one-factor linear regression:
 * Mistakes predicts time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
 * Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the low variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
-* ![Time given mistakes plot](analysis/data/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/data/aggregate/time_given_diff/plot.png)
+* ![Time given mistakes plot](analysis/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/aggregate/time_given_diff/plot.png)
 
 Data appear to be roughly normally distributed, but I'm not sure near the extremes:
-* ![Q-Q plot](analysis/data/aggregate/qq_plot.png)
+* ![Q-Q plot](analysis/aggregate/vis/qq_plot.png)
 
 
 ### Direction

@@ -3,8 +3,8 @@
 Dep. Variable:     Total Time Taken (ms)   R-squared:                       0.027
 Model:                               OLS   Adj. R-squared:                  0.017
 Method:                    Least Squares   F-statistic:                     2.713
-Date:                   Thu, 28 Dec 2023   Prob (F-statistic):              0.103
-Time:                           10:43:43   Log-Likelihood:                -865.53
+Date:                   Fri, 29 Dec 2023   Prob (F-statistic):              0.103
+Time:                           10:46:34   Log-Likelihood:                -865.53
 No. Observations:                     99   AIC:                             1735.
 Df Residuals:                         97   BIC:                             1740.
 Df Model:                              1                                         

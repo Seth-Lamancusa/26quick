@@ -55,9 +55,10 @@ def generate_agg_data(sessions):
     # Creating the plot
     fig, ax1 = plt.subplots()
 
-    # Calculating median values for each session
+    # Calculating median values for each session and num 0-mistake runs
     medians_time_taken = [df["Total Time Taken (ms)"].median() for df in dfs]
     medians_mistakes = [df["Total Mistakes"].median() for df in dfs]
+    nom = [df["Total Mistakes"].value_counts().get(0, 0) for df in dfs]
 
     # Plotting Median Total Time Taken
     ax1.set_xlabel("Session")
@@ -91,22 +92,30 @@ def generate_agg_data(sessions):
     fig.tight_layout()
     plt.savefig("analysis/aggregate/vis/scatter.png")
 
+    plt.clf()
+
+    # 0-mistake runs by session
+    plt.plot(sessions, nom)
+    plt.xlabel("Session")
+    plt.ylabel("Number 0-mistake runs")
+    plt.savefig("analysis/aggregate/vis/nom.png")
+
     print("Aggregate data generated successfully.")
 
 
-generate_agg_data([str(i) for i in range(1, 9)])
+generate_agg_data([str(i) for i in range(1, 10)])
 generate_lm(
     predictor="Total Mistakes",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_mistakes",
     agg=True,
-    sessions=[str(i) for i in range(1, 9)],
+    sessions=[str(i) for i in range(1, 10)],
 )
 generate_lm(
     predictor="Layout Difficulty",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_diff",
     agg=True,
-    sessions=[str(i) for i in range(1, 9)],
+    sessions=[str(i) for i in range(1, 10)],
 )
-generate_plots(agg=True, sessions=[str(i) for i in range(1, 9)])
+generate_plots(agg=True, sessions=[str(i) for i in range(1, 10)])

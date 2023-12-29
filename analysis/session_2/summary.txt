@@ -1,18 +1,15 @@
 Summary Statistics for session_2
 
 Total Runs: 93
+Total 0-mistake Runs: 2
 
 Mean Time Taken (ms): 14399.52688172043
 Median Time Taken (ms): 14198.0
 Best Time Taken (ms): 10548.0
 Worst Time Taken (ms): 20514.0
-25th Quantile Time Taken (ms): 13365.0
-75th Quantile Time Taken (ms): 15432.0
 
 Mean Mistakes: 4.161290322580645
 Median Mistakes: 4.0
 Least Mistakes: 0.0
 Most Mistakes: 10.0
-25th Quantile Mistakes: 3.0
-75th Quantile Mistakes: 5.0
 
