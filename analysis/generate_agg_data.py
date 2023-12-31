@@ -103,19 +103,21 @@ def generate_agg_data(sessions):
     print("Aggregate data generated successfully.")
 
 
-generate_agg_data([str(i) for i in range(1, 10)])
+upr = 11
+
+generate_agg_data([str(i) for i in range(1, upr)])
 generate_lm(
     predictor="Total Mistakes",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_mistakes",
     agg=True,
-    sessions=[str(i) for i in range(1, 10)],
+    sessions=[str(i) for i in range(1, upr)],
 )
 generate_lm(
     predictor="Layout Difficulty",
     response="Total Time Taken (ms)",
     output_folder_name="time_given_diff",
     agg=True,
-    sessions=[str(i) for i in range(1, 10)],
+    sessions=[str(i) for i in range(1, upr)],
 )
-generate_plots(agg=True, sessions=[str(i) for i in range(1, 10)])
+generate_plots(agg=True, sessions=[str(i) for i in range(1, upr)])

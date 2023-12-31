@@ -11,7 +11,7 @@
 
 26quick is a passion project, a way for me to learn front-end web development and statistical data analysis in an applied setting, and a way to research learning in humans in order to answer some questions that genuinely interest me. It's also a video game and I've always wanted to make one of those. The idea is to collect data in a simple setting over long time horizons to analyze how various practice parameters affect learning (see [the direction section](#direction) for more detail).
 
-It's modeled off a game I used to play on my phone where you simply had to tap the numbers one through twenty-five as quickly as possible. They were arranged in a square grid and it was much easier than my keyboard adaptation. I played something like 8,000 8-12s runs of that game before growing bored, and went from sub-10s runs feeling like NASCAR to a 5.5s personal best through ~20 hours of practice in spare moments throughout my day. The reason I was drawn to the game as a model for my own project is that it has a very high difficulty : complexity ratio, making it an effective magnifying glass for factor analysis. The random element of the number distribution contributes to the skill curve lengthening and enables the design simplicity, while the short run time means higher sample sizes.
+It's modeled off a game I used to play on my phone where your task was simply to tap the numbers one through twenty-five, arranged in a 5-by-5 grid, as quickly as possible. I played something like 8,000 8-12s runs of that game before growing bored, and went from sub-10s runs feeling like NASCAR to a 5.5s personal best through ~20 hours of practice in spare moments throughout my day. The reason I was drawn to the game as a model for my own project is that it has a very high difficulty / complexity ratio, making it an effective magnifying glass for factor analysis. The random element of the number distribution contributes to the skill curve lengthening and enables the design simplicity, while the short run time means higher sample sizes.
  
 ### Instructions
 
@@ -56,28 +56,29 @@ Correlations drawn from all runs over all sessions using one-factor linear regre
 * Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the low variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
 * ![Time given mistakes plot](analysis/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/aggregate/time_given_diff/plot.png)
 
-Data appear to be roughly normally distributed, but I'm not sure near the extremes:
+Data appear to reliably diverge from normal distribution near the extremes. I'm not sure how to interpret this yet:
 * ![Q-Q plot](analysis/aggregate/vis/qq_plot.png)
 
 
 ### Direction
 
-By its nature this is a very expandable project, and something of a perpetual work-in-progress. The data analysis is currently preliminary and small in scale (limited to a single session), so concrete goals for the future of this project include:
+By its nature this is a very expandable project, and something of a perpetual work-in-progress. Concrete goals for the future of this project include:
 * **Data collection**: This is the fun part. To take advantage of the aforementioned long skill curve and conducivity to large samples, I'll of course have to generate these samples by playing the game.
 * **Research questions**:
   - *Microscopic*
-      + How are these factors related?
-        - target key absolute location and time to press
-        - target key absolute location and mistake probability
-        - target key number and time to press
-        - target key number and mistake probability
-        - target key relative location (to last key) and time to press
-        - target key relative location (to last key) and mistake probability
-      + Does hiding mistakes and time during practice improve or hurt performance?
+      + How various factors related?
+        - target key absolute location vs time to press
+        - target key absolute location vs mistake probability
+        - target key number vs time to press
+        - target key number vs mistake probability
+        - target key relative (to last key) location vs time to press
+        - target key relative (to last key) location vs mistake probability
   - *Macroscopic*
-      + How long does it take to "warm up"? I'll take a rolling average over many sessions and identify peak performance window.
-      + Is there a benefit to taking short breaks in the middle of a session?
+      + Is there a quantifiable "warm-up" period at the beginning of a session during which performance improves, then levels off?
       + How quickly do I get better? Can the skill curve be fit well to a mathematical model (exponential decay, power law, etc.)?
-      + Does sleep noticably improve performance? More than a break of equal time?
+      + What is the effect of taking breaks of various durations during a session?
+      + What is the effect of different practice schedules? 
+        - i.e. 1hr MWF vs 30min MTWThFS
 * **More subjects**: Obviously any trends I identify in my own performance would benefit corroberation. Also would eventually like to look at inter-subject variability.
-* **Web hosting**: To that end, hosting the game online for data collection purposes is an obvious possibility, but one which I am somewhat cautious about for the time being because of all the extraneous legwork involved, and how much further I can take the project before I need to go there.
+* **Web hosting**: To that end, hosting the game online for data collection purposes is an obvious possibility, but one which I am somewhat cautious about for the time being because of all the extraneous legwork involved, and given how much further I can take the project before I need to go there.
+* **Eye tracking**: Pending real insights from current aproach and tangible research questions that can be answered with an eye tracker, there is no reason to bother with this, but it is a tempting thought.

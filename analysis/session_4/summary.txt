@@ -4,11 +4,15 @@ Total Runs: 92
 Total 0-mistake Runs: 6
 
 Mean Time Taken (ms): 14600.815217391304
+Standard Deviation: 1393.6407133862174
+
 Median Time Taken (ms): 14456.0
 Best Time Taken (ms): 11631.0
 Worst Time Taken (ms): 18281.0
 
 Mean Mistakes: 2.891304347826087
+Standard Deviation: 1.6867715553627556
+
 Median Mistakes: 3.0
 Least Mistakes: 0.0
 Most Mistakes: 7.0
