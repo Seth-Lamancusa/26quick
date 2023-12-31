@@ -24,7 +24,7 @@ The panels can be flipped over by clicking the info icons to reveal details. The
 Once you've played the game for a while and want to further analyze your data, complete the following steps:
 1) Click the "Download Local Storage" button and a file named "localStorage.json" will be downloaded.
 2) Now, create a folder under the "analysis" directory with a name beginning with "session_", followed by a unique session ID (a number would be most natural of course). Create a subdirectory of this folder called "data".
-3) Place the downloaded .json file into this folder. See example "session_n" for structure.
+3) Place the downloaded .json file into this folder.
 4) Edit the file "generate_session_data.py" to include the correct session ID. You can run the script as-is to generate analyses for the example 'session_n' directory.
 5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
 6) Finally, run the "generate_session_data.py" script and your session directory should be populated with a few additional files and folders:
