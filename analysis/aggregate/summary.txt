@@ -1,15 +1,15 @@
 Aggregate Summary Statistics
 
-Total Runs: 1381
+Total Runs: 1482
 
-Mean Time Taken (ms): 13202.92
-Median Time Taken (ms): 12999.00
+Mean Time Taken (ms): 13180.12
+Median Time Taken (ms): 12989.50
 Best Time Taken (ms): 8333.00
 Worst Time Taken (ms): 21279.00
-25th Quantile Time Taken (ms): 11799.00
-75th Quantile Time Taken (ms): 14481.00
+25th Quantile Time Taken (ms): 11815.00
+75th Quantile Time Taken (ms): 14397.75
 
-Mean Mistakes: 3.34
+Mean Mistakes: 3.32
 Median Mistakes: 3.00
 Least Mistakes: 0.00
 Most Mistakes: 15.00
