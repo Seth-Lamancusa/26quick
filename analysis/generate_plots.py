@@ -1,4 +1,5 @@
 import os
+import math
 import pandas as pd
 import numpy as np
 from scipy import stats
@@ -84,7 +85,12 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 
     # Histogram for "Total Time Taken (ms)"
-    axs[0].hist(df["Total Time Taken (ms)"], bins=20, color="blue")
+    bin_edges = np.arange(
+        math.floor(df["Total Time Taken (ms)"].min() / 1000) * 1000,
+        math.ceil(df["Total Time Taken (ms)"].max() / 1000) * 1000,
+        1000,
+    )
+    axs[0].hist(df["Total Time Taken (ms)"], bins=bin_edges, color="blue")
     axs[0].set_title("Histogram for Total Time Taken (ms)")
     axs[0].set_xlabel("Total Time Taken (ms)")
     axs[0].set_ylabel("Frequency")
