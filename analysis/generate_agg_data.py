@@ -57,7 +57,6 @@ def generate_agg_data(sessions):
 
     # Calculating median values for each session and num 0-mistake runs
     medians_time_taken = [df["Total Time Taken (ms)"].median() for df in dfs]
-    medians_mistakes = [df["Total Mistakes"].median() for df in dfs]
     nom = [df["Total Mistakes"].value_counts().get(0, 0) for df in dfs]
 
     # Plotting Median Total Time Taken
@@ -66,11 +65,17 @@ def generate_agg_data(sessions):
     ax1.plot(sessions, medians_time_taken, color="tab:blue")
     ax1.tick_params(axis="y", labelcolor="tab:blue")
 
-    # Creating a second y-axis for Median Total Mistakes
+    # Creating a second y-axis for average Total Mistakes
     ax2 = ax1.twinx()
-    ax2.set_ylabel("Median Total Mistakes", color="tab:red")
-    ax2.plot(sessions, medians_mistakes, color="tab:red")
+    ax2.set_ylabel("Mean Total Mistakes", color="tab:red")
+    ax2.plot(sessions, [df["Total Mistakes"].mean() for df in dfs], color="tab:red")
     ax2.tick_params(axis="y", labelcolor="tab:red")
+
+    # Creating third y-axis for mistake chains
+    # ax3 = ax1.twinx()
+    # ax3.set_ylabel("Average number of Mistake chains", color="tab:green")
+    # ax3.plot(sessions, [df["Mistake Chains"].mean() for df in dfs], color="tab:green")
+    # ax3.tick_params(axis="y", labelcolor="tab:green")
 
     # Finalizing and saving the plot
     fig.tight_layout()
@@ -103,7 +108,7 @@ def generate_agg_data(sessions):
     print("Aggregate data generated successfully.")
 
 
-upr = 20
+upr = 22
 
 generate_agg_data([str(i) for i in range(1, upr)])
 generate_lm(

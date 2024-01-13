@@ -39,6 +39,29 @@ def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
                 ):
                     key_releases.append(run_row["Key"])
 
+        # Calculate mistake chains
+        presses_only = run_data[run_data["Action"] == "pressed"]
+        presses_only.reset_index(drop=True, inplace=True)
+        releases_only = run_data[run_data["Action"] == "released"]
+        releases_only.reset_index(drop=True, inplace=True)
+        chains = 0
+        chain = False
+        only = (
+            releases_only if session_ID == "n" or int(session_ID) < 22 else presses_only
+        )
+        for event_index, run_row in only.iterrows():
+            if event_index == 0:
+                if run_row["Mistakes"] > 0:
+                    chains += 1
+                    chain = True
+            elif chain:
+                if not run_row["Mistakes"] > only.iloc[event_index - 1]["Mistakes"]:
+                    chain = False
+            elif not chain:
+                if run_row["Mistakes"] > only.iloc[event_index - 1]["Mistakes"]:
+                    chains += 1
+                    chain = True
+
         distances_sum = sum(
             distances.get(f"{prev.upper()}{current.upper()}", 0)
             for prev, current in zip(key_releases, key_releases[1:])
@@ -53,6 +76,7 @@ def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
                 "Total Time Taken (ms)": total_time,
                 "Total Mistakes": total_mistakes,
                 "Layout Difficulty": layout_difficulty,
+                "Mistake Chains": chains,
             }
         )
 
@@ -70,6 +94,7 @@ def raw_to_session(session_ID, outlier_threshold=(99999, 99)):
             "Total Time Taken (ms)",
             "Total Mistakes",
             "Layout Difficulty",
+            "Mistake Chains",
         ]
     ]
 

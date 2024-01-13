@@ -290,18 +290,6 @@ class Keyboard {
 				}
 
 				for (let i = 0; i < 26; i++) {
-					// Set key press records
-					if (this.keys[i].isDown && !this.keys[i].prevDown) {
-						const dateTime = new Date();
-						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
-					}
-					if (!this.keys[i].isDown && this.keys[i].prevDown) {
-						const dateTime = new Date();
-						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
-						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
-					}
-
 					if (this.keys[i].isDown && ingame) {
 						if (this.keys[i].content == this.expectedNext) {
 							this.pressed[i] = true;
@@ -320,6 +308,18 @@ class Keyboard {
 						this.immune[i] = false;
 						this.keys[i].appearance["stroke"] = this.pressed[i] ? this.style["downStroke"] : this.style["upStroke"];
 						this.keys[i].appearance["fill"] = this.pressed[i] ? this.style["downFill"] : this.style["upFill"];
+					}
+
+					// Set key press records
+					if (this.keys[i].isDown && !this.keys[i].prevDown) {
+						const dateTime = new Date();
+						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'pressed', this.time, this.mistakes]);
+					}
+					if (!this.keys[i].isDown && this.keys[i].prevDown) {
+						const dateTime = new Date();
+						const timestamp = `${dateTime.getFullYear()}-${String(dateTime.getMonth() + 1).padStart(2, '0')}-${String(dateTime.getDate()).padStart(2, '0')} ${String(dateTime.getHours()).padStart(2, '0')}:${String(dateTime.getMinutes()).padStart(2, '0')}:${String(dateTime.getSeconds()).padStart(2, '0')}.${String(dateTime.getMilliseconds()).padStart(3, '0')}`;
+						localStorage.setItem(timestamp, [this.indexKeys[i], this.keys[i].content, 'released', this.time, this.mistakes]);
 					}
 
 					this.keys[i].update(this.keySize, this.keySize);

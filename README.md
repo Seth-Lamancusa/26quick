@@ -47,7 +47,7 @@ Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" yo
 
 ### Insights
 
-Improvement over time visualizations:
+Below are improvement over time visualizations. The hypothesized trend in average time taken (ms) over sessions consists of periodic plateaus of increasing lengths, punctuated by rapid periods of improvement. These plateaus are reminiscent of resistance lines if you're into day trading, but I think they're most accurately called attractors. More analysis needed.
 * ![Median time and mistakes by session](analysis/aggregate/vis/agg_plot.png)
 * ![Number 0-mistake runs by session](analysis/aggregate/vis/nom.png)
 
