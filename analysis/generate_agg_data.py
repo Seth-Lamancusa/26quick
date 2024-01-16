@@ -108,7 +108,7 @@ def generate_agg_data(sessions):
     print("Aggregate data generated successfully.")
 
 
-upr = 22
+upr = 24
 
 generate_agg_data([str(i) for i in range(1, upr)])
 generate_lm(
