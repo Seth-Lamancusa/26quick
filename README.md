@@ -23,41 +23,41 @@ The panels can be flipped over by clicking the info icons to reveal details. The
 
 Once you've played the game for a while and want to further analyze your data, complete the following steps:
 1) Click the "Download Local Storage" button and a file named "localStorage.json" will be downloaded.
-2) Now, create a folder under the "analysis" directory with a name beginning with "session_", followed by a unique session ID (a number would be most natural of course). Create a subdirectory of this folder called "data".
+2) Now, create a folder under the "analysis/data" directory (alongside my session folders) with a unique name to act as a session ID.
 3) Place the downloaded .json file into this folder.
-4) Edit the file "generate_session_data.py" to include the correct session ID. You can run the script as-is to generate analyses for the example 'session_n' directory.
+4) Edit the file "session_update.py" to include the correct session ID. If you have more than one session, modify "sessions" so that it is a list of the IDs for the sessions for which you want aggregate insights to be generated.
 5) Before you can run the analyses, you'll need to install the necessary Python packages by running the following command in the project directory: pip install -r requirements.txt
-6) Finally, run the "generate_session_data.py" script and your session directory should be populated with a few additional files and folders:
+6) Finally, run the "session_update.py" script and your "aggregate_insights" and "session_insights" directories should be populated with a few additional files and folders:
   * **vis**:
-    - **performance_plot.png**: a simple visualization, with time and mistakes plotted on parallel y-axes.
+    - **performance_plot.png** (session only): a simple visualization, with time and mistakes plotted on parallel y-axes.
+    - **0_mistake_runs** (aggregate only): a plot of the number of 0-mistake runs completed by session.
+    - **performance_by_session** (aggregate only): a plot of average time and mistakes plotted on parallel y-axes by session.
+    - **scatter** (aggregate only): a scatter plot showing all your runs, color-coded by session and plotted by mistakes and time.
     - **qq_plot.png**: a Q-Q plot testing against theoretical normal distribution.
     - **histograms.png**: two histograms; one for time and one for mistakes.
-    - **y_given_x**: a folder(s) containg 
-      + a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response.
-      + a plot of the regression line overlayed on top of the data.
-  * **data**:
-    - **raw.csv**: a csv file in which rows describe in-game events, like key presses and releases or the starts and ends of runs.
-    - **session.csv**: a .csv file in which rows describe full runs.
+  * **y_given_x**: a folder(s) containg 
+    - a summary of a one-factor linear model using 'x' as our predictor and 'y' as our response.
+    - a plot of the regression line overlayed on top of the data.
   * **summary.txt**: a .txt file giving summary statistics for the whole session.
-  * **rolling**: a folder containing several charts with plotted rolling averages. The number following "rolling_" in the .png filename is the window size.
-
-Once you have a few sessions, you can run "generate_agg_data.py" to analyze your play over longer time horizons. Work in progress. "aggregate" folder currentlly populated with my own data.
+  * **rolling** (session only): a folder containing several charts with plotted rolling averages. The number following "rolling_" in the .png filename is the window size.
 
 Note: "raw_to_session(...)" has a third parameter called "outlier_threshhold" you can add to the function call in line 186 if needed. It imposes a maximum time and mistakes: if either is exceeded, the run will not be added to "session.csv". Useful for when a friend hops in for a few runs.
 
 ### Insights
 
-Below are improvement over time visualizations. The hypothesized trend in average time taken (ms) over sessions consists of periodic plateaus of increasing lengths, punctuated by rapid periods of improvement. These plateaus are reminiscent of resistance lines if you're into day trading, but I think they're most accurately called attractors. More analysis needed.
-* ![Median time and mistakes by session](analysis/aggregate/vis/agg_plot.png)
-* ![Number 0-mistake runs by session](analysis/aggregate/vis/nom.png)
+Below are visualizations of my improvement over time. The hypothesized trend in average time taken (ms) over sessions consists of periodic plateaus of increasing lengths, punctuated by rapid periods of improvement. These plateaus are reminiscent of resistance lines if you're into day trading, but I think they're most accurately called attractors. More analysis needed.
+* ![Average time and mistakes by session](analysis/aggregate_insights/vis/performance_by_session.png)
+* ![Number 0-mistake runs by session](analysis/aggregate_insights/vis/0_mistake_runs.png)
+* ![Histograms](analysis/aggregate_insights/vis/histograms.png)
+* ![Scatter plot](analysis/aggregate_insights/vis/scatter.png)
 
 Correlations drawn from all runs over all sessions using one-factor linear regression:
 * Mistakes predicts time taken (p≈0). The more mistakes you make, the worse your time. It's very tempting to try to go quick, since the time is intuitively the primary measure of skill, but you will actually be faster on average if you focus on making fewer mistakes, instead of focusing on pressing the buttons faster.
 * Layout difficultly predicts time taken (p≈0). Layout difficulty is assessed by the average distance in millimeters between two consecutive keys within a run. On a session by session basis (n≲100), the correlation is less obvious (p≳.05) due to the low variability of layout difficulty (sd=6.26mm), but more data makes the correlation apparent.
-* ![Time given mistakes plot](analysis/aggregate/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/aggregate/time_given_diff/plot.png)
+* ![Time given mistakes plot](analysis/aggregate_insights/time_given_mistakes/plot.png) ![Time given layout difficulty plot](analysis/aggregate_insights/time_given_diff/plot.png)
 
-Data appear to reliably diverge from normal distribution near the extremes. I'm not sure how to interpret this yet:
-* ![Q-Q plot](analysis/aggregate/vis/qq_plot.png)
+Data appear to reliably diverge from normal distribution near the extremes. More analysis needed:
+* ![Q-Q plot](analysis/aggregate_insights/vis/qq_plots.png)
 
 
 ### Direction
