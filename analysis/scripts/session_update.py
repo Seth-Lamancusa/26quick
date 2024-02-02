@@ -5,7 +5,7 @@ from raw_to_session import raw_to_session
 from analysis.scripts.generate_lm_folder import generate_lm_folder
 from generate_rolling import generate_rolling
 
-session_ID = "31"
+session_ID = "32"
 sessions = [
     "1",
     "2",
@@ -38,6 +38,7 @@ sessions = [
     "29",
     "30",
     "31",
+    "32",
 ]
 
 # Preprocessing

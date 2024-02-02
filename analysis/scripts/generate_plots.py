@@ -66,7 +66,7 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
 
         ax1.set_xlabel("Session number")
         ax1.set_ylabel("Median Total Time Taken (ms)", color="tab:blue")
-        ax1.plot(sessions, means_time_taken, color="tab:blue", marker="o")
+        ax1.plot(sessions, means_time_taken, color="tab:blue")
         ax1.tick_params(axis="y", labelcolor="tab:blue")
 
         ax2 = ax1.twinx()
@@ -75,7 +75,6 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
             sessions,
             [d["Total Mistakes"].mean() for d in dfs],
             color="tab:red",
-            marker="o",
         )
         ax2.tick_params(axis="y", labelcolor="tab:red")
 
