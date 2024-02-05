@@ -96,7 +96,7 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
 
         colors = plt.cm.rainbow(np.linspace(0, 1, len(dfs)))
 
-        for i, (d, color) in enumerate(zip(dfs, colors), start=1):
+        for _, (d, color) in enumerate(zip(dfs, colors), start=1):
             ax.scatter(
                 d["Total Mistakes"],
                 d["Total Time Taken (ms)"],
@@ -114,9 +114,8 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         cbar = plt.colorbar(sm, ax=ax)
         cbar.set_label("Session Number")
 
-        tick_interval = 5
-        cbar.set_ticks(np.linspace(1, len(dfs), num=len(dfs) // tick_interval + 1))
-        cbar.set_ticklabels([str(i) for i in range(1, len(dfs) + 1, tick_interval)])
+        cbar.set_ticks(np.linspace(1, len(dfs), num=3))
+        cbar.set_ticklabels([1, len(dfs) // 2, len(dfs)])
 
         fig.tight_layout()
         plt.savefig(os.path.join(output_dir, "scatter.png"))
@@ -170,14 +169,14 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
     axs[0].set_xlabel("Total Time Taken (ms)")
     axs[0].set_ylabel("Frequency")
 
-    d = np.diff(np.unique(df["Total Mistakes"])).min()
-    left_of_first_bin = df["Total Mistakes"].min() - float(d) / 2
-    right_of_last_bin = df["Total Mistakes"].max() + float(d) / 2
+    max_mistakes = df["Total Mistakes"].max()
     axs[1].hist(
         df["Total Mistakes"],
-        np.arange(left_of_first_bin, right_of_last_bin + d, d),
+        bins=np.arange(-0.5, max_mistakes + 1.5, 1),
         color="red",
     )
+    bin_centers = np.arange(0, max_mistakes + 1, 1)
+    axs[1].set_xticks(bin_centers)
     axs[1].set_title("Histogram for Total Mistakes")
     axs[1].set_xlabel("Total Mistakes")
     axs[1].set_ylabel("Frequency")
