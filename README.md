@@ -62,6 +62,10 @@ Data appear to reliably diverge from normal distribution near the extremes. More
 
 ### Direction
 
+To Do List:
+* Adjust x axis on plots for date instead of session number
+* Add options for hiding live session data
+
 By its nature this is a very expandable project, and something of a perpetual work-in-progress. Concrete goals for the future of this project include:
 * **Data collection**: This is the fun part. To take advantage of the aforementioned long skill curve and conducivity to large samples, I'll of course have to generate these samples by playing the game.
 * **Research questions**:

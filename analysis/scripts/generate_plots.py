@@ -65,7 +65,7 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         means_time_taken = [d["Total Time Taken (ms)"].mean() for d in dfs]
 
         ax1.set_xlabel("Session number")
-        ax1.set_ylabel("Median Total Time Taken (ms)", color="tab:blue")
+        ax1.set_ylabel("Mean Total Time Taken (ms)", color="tab:blue")
         ax1.plot(sessions, means_time_taken, color="tab:blue")
         ax1.tick_params(axis="y", labelcolor="tab:blue")
 
