@@ -120,23 +120,25 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         fig.tight_layout()
         plt.savefig(os.path.join(output_dir, "scatter.png"))
 
-        # 0-mistake runs by session
+        # Proportion perfect runs by session
         plt.clf()
         plt.figure(figsize=(12, 6))
 
-        nom = [d["Total Mistakes"].value_counts().get(0, 0) for d in dfs]
-        plt.plot(sessions, nom, marker="o")
+        prop_perfect = [
+            d["Total Mistakes"].value_counts().get(0, 0) / len(d) for d in dfs
+        ]
+        plt.plot(sessions, prop_perfect, marker="o")
 
         plt.xlabel("Session")
-        plt.ylabel("Number of 0-mistake runs")
-        plt.title("0-Mistake Runs Across Sessions")
+        plt.ylabel("Proportion of perfect runs")
+        plt.title("Perfect Runs Across Sessions")
         plt.xticks(rotation=45)
         plt.tight_layout()  # Adjust layout to fit everything nicely
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        plt.savefig(os.path.join(output_dir, "0_mistake_runs.png"))
+        plt.savefig(os.path.join(output_dir, "perfect.png"))
 
     # Q-Q plots
     plt.clf()
