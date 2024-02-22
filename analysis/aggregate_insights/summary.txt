@@ -1,16 +1,16 @@
 Summary Statistics for session_None
 
-Total Runs: 4288
-Total 0-mistake Runs: 676
+Total Runs: 4410
+Total 0-mistake Runs: 706
 
-Mean Time Taken (ms): 11350.158348880597
-Standard Deviation: 2033.3981155469855
+Mean Time Taken (ms): 11307.313832199547
+Standard Deviation: 2027.8999054897827
 
 Best Time Taken (ms): 7348.0
 Worst Time Taken (ms): 21279.0
 
-Mean Mistakes: 2.658115671641791
-Standard Deviation: 2.2079229206788833
+Mean Mistakes: 2.6435374149659863
+Standard Deviation: 2.2018590887385567
 
 Least Mistakes: 0.0
 Most Mistakes: 18.0
