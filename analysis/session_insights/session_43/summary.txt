@@ -1,0 +1,17 @@
+Summary Statistics for session_43
+
+Total Runs: 120
+Total 0-mistake Runs: 16
+
+Mean Time Taken (ms): 9919.783333333333
+Standard Deviation: 1114.4971371104778
+
+Best Time Taken (ms): 7656.0
+Worst Time Taken (ms): 12977.0
+
+Mean Mistakes: 2.85
+Standard Deviation: 2.2886273453864048
+
+Least Mistakes: 0.0
+Most Mistakes: 10.0
+

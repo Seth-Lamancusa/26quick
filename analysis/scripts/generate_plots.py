@@ -1,9 +1,12 @@
 import os
 import math
+import datetime
 import pandas as pd
 import numpy as np
 from scipy import stats
 from matplotlib import pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib.ticker as ticker
 
 
 # Histograms, Q-Q plots, and performance plot
@@ -63,23 +66,32 @@ def generate_plots(agg=False, session_ID=None, sessions=None):
         fig, ax1 = plt.subplots()
 
         means_time_taken = [d["Total Time Taken (ms)"].mean() for d in dfs]
+        dates = [d["Run Start Time"][0] for d in dfs]
+        dates = mdates.date2num(dates)
 
-        ax1.set_xlabel("Session number")
+        ax1.set_xlabel("Session date")
         ax1.set_ylabel("Mean Total Time Taken (ms)", color="tab:blue")
-        ax1.plot(sessions, means_time_taken, color="tab:blue")
+        ax1.plot(dates, means_time_taken, color="tab:blue")
         ax1.tick_params(axis="y", labelcolor="tab:blue")
 
         ax2 = ax1.twinx()
         ax2.set_ylabel("Mean Total Mistakes", color="tab:red")
         ax2.plot(
-            sessions,
+            dates,
             [d["Total Mistakes"].mean() for d in dfs],
             color="tab:red",
         )
         ax2.tick_params(axis="y", labelcolor="tab:red")
 
-        selected_ticks = sessions[::3]  # This selects every other element
-        ax1.set_xticks(selected_ticks)
+        # Set x-axis major ticks to the first day of each week (Sunday) with labels
+        ax1.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.SU))
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+
+        # Set x-axis minor ticks to every day without labels
+        ax1.xaxis.set_minor_locator(mdates.DayLocator())
+        ax1.xaxis.set_minor_formatter(ticker.NullFormatter())
+
+        fig.autofmt_xdate()
 
         # Creating third y-axis for mistake chains
         # ax3 = ax1.twinx()

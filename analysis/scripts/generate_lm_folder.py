@@ -47,10 +47,10 @@ def generate_lm_folder(
     plt.scatter(df[predictor], y, color="blue", alpha=0.5)
     plt.plot(df[predictor], predictions, color="red")  # Regression line
 
-    intercept = model.params[0]
-    p_value_int = model.pvalues[0]
-    slope = model.params[1]
-    p_value_slope = model.pvalues[1]
+    intercept = model.params.iloc[0]
+    p_value_int = model.pvalues.iloc[0]
+    slope = model.params.iloc[1]
+    p_value_slope = model.pvalues.iloc[1]
 
     plt.text(
         0.05,
