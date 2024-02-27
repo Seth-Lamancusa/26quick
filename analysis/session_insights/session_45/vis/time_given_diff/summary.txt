@@ -1,0 +1,25 @@
+                              OLS Regression Results                             
+=================================================================================
+Dep. Variable:     Total Time Taken (ms)   R-squared:                       0.002
+Model:                               OLS   Adj. R-squared:                 -0.006
+Method:                    Least Squares   F-statistic:                    0.2797
+Date:                   Mon, 26 Feb 2024   Prob (F-statistic):              0.598
+Time:                           12:55:02   Log-Likelihood:                -1021.1
+No. Observations:                    120   AIC:                             2046.
+Df Residuals:                        118   BIC:                             2052.
+Df Model:                              1                                         
+Covariance Type:               nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const              9458.5285   1067.025      8.864      0.000    7345.529    1.16e+04
+Layout Difficulty     8.8296     16.694      0.529      0.598     -24.229      41.889
+==============================================================================
+Omnibus:                        7.060   Durbin-Watson:                   2.051
+Prob(Omnibus):                  0.029   Jarque-Bera (JB):                6.605
+Skew:                           0.524   Prob(JB):                       0.0368
+Kurtosis:                       3.470   Cond. No.                         618.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
